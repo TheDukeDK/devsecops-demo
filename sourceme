@@ -1,0 +1,10 @@
+export SONARQUBE_USER_NAME=sonarqube
+export SONARQUBE_USER_GROUP=sonarqube
+export SONARQUBE_DB="sonar"
+export SONARQUBE_DB_PORT="5434"
+export SONARQUBE_DB_USER="sonar"
+export SONARQUBE_DB_PASSWORD="sonar"
+
+export JENKINS_ADMIN_USER="admin"
+export JENKINS_ADMIN_PASSWORD="password"
+export CASC_JENKINS_CONFIG="/jenkins.yml"

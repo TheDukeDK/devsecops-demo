@@ -1,0 +1,92 @@
+version: '3'
+
+services:
+  traefik:
+    image: "traefik:v2.3.3"
+    container_name: "traefik"
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    restart: unless-stopped
+    stop_grace_period: 30s
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "80:80"
+      - "8080:8080"
+  jenkins.local.net:
+    build: jenkins
+    container_name: jenkins
+    image: jenkins-lts:2.249.3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.router1.rule=Host(`$JENKINS_SERVER_NAME`)"
+      - "traefik.http.routers.router1.entrypoints=web"
+      - "traefik.http.routers.router1.service=jenkins"
+      - "traefik.http.services.jenkins.loadbalancer.server.port=8083"
+    ports:
+      - "50000:50000"
+      - "8083:8083"
+    networks:
+      - default
+    environment:
+      - JENKINS_SLAVE_AGENT_PORT=50000
+      - JENKINS_OPTS="--httpPort=8083"
+      - JENKINS_ADMIN_USER=$JENKINS_ADMIN_USER
+      - JENKINS_ADMIN_PASSWORD=$JENKINS_ADMIN_PASSWORD
+      - CASC_JENKINS_CONFIG=$CASC_JENKINS_CONFIG
+    volumes:
+      - jenkins_data:/var/jenkins_home
+  sonarqube.local.net:
+    build: sonarqube
+    container_name: sonarqube
+    image: sonarqube-community:8.5.1
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.router2.rule=Host(`$SONARQUBE_SERVER_NAME`)"
+      - "traefik.http.routers.router2.entrypoints=web"
+      - "traefik.http.routers.router2.service=sonarqube"
+      - "traefik.http.services.sonarqube.loadbalancer.server.port=9000"
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    networks:
+      - default
+    environment:
+      - SONARQUBE_USER_NAME=$SONARQUBE_USER_NAME
+      - SONARQUBE_USER_GROUP=$SONARQUBE_USER_GROUP
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://sonar-postgres/sonar
+      - SONARQUBE_JDBC_USERNAME=$SONARQUBE_DB_USER
+      - SONARQUBE_JDBC_PASSWORD=$SONARQUBE_DB_PASSWORD
+    volumes:
+      - sonar_data:/opt/sonarqube/data
+      - sonar_logs:/opt/sonarqube/logs
+    depends_on:
+      - sonar-postgres
+    links:
+      - sonar-postgres
+  sonar-postgres:
+    image: postgres:11.10-alpine
+    container_name: sonarqube_postgress
+    ports:
+      - $SONARQUBE_DB_PORT:5432
+    environment:
+      - POSTGRES_DB=$SONARQUBE_DB
+      - POSTGRES_USER=$SONARQUBE_DB_USER
+      - POSTGRES_PASSWORD=$SONARQUBE_DB_PASSWORD
+    volumes:
+      - sonar_db_volume:/var/lib/postgresql/data
+    restart: always
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 32000
+        hard: 40000
+volumes:
+  jenkins_data: {}
+  sonar_data: {}
+  sonar_logs: {}
+  sonar_db_volume: {}

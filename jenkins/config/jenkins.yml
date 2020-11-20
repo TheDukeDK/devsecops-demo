@@ -1,0 +1,74 @@
+#configuration-as-code:
+#  deprecated: "warn"
+#  restricted: "warn"
+#  unknown: "warn"
+
+jenkins:
+  systemMessage: | 
+    Automatically configured(boostrapped) Jenkins docker instance. 
+    When making changes to the system configuration consider if they should be part of the bootstrapping."
+
+  markupFormatter:
+    rawHtml:
+      disableSyntaxHighlighting: true
+  
+  primaryView:
+    all:
+      name: "all"
+  
+  mode: NORMAL
+  numExecutors: 2
+  quietPeriod: 5
+  scmCheckoutRetryCount: 1
+
+  slaveAgentPort: 50000
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  
+  views:
+  - all:
+      name: "all"
+  
+  globalNodeProperties:
+    - envVars:
+        env:
+          - key: SONARQUBE_SERVER_NAME
+            value: "http://sonarqube.local.net"
+  
+  # Security Configurations
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+      - id: ${JENKINS_ADMIN_USER}
+        password: ${JENKINS_ADMIN_PASSWORD}
+
+  crumbIssuer: 
+    standard:
+       excludeClientIPFromCrumb: false
+
+  remotingSecurity:
+    enabled: true
+  
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: true
+  
+  disableRememberMe: true
+
+tool:
+  git:
+    installations:
+    - home: "/usr/bin/git"
+      name: "Default"
+
+unclassified:
+  location:
+    url: http://jenkins.local.net
+
+  sonarGlobalConfiguration:
+    installations:
+      - name: "sonarqube.local.net"
+        serverUrl: "http://sonarqube.local.net"
+
