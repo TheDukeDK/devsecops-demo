@@ -10,13 +10,17 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
+      - "--entrypoints.ssh-gitlab.address=:22"
     restart: unless-stopped
     stop_grace_period: 30s
+    networks:
+      - default
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - "80:80"
-      - "8080:8080"
+      - "8080:8080" # Just for the dashboard
+      - "22:22"
   jenkins.local.net:
     build: jenkins
     container_name: jenkins
@@ -28,8 +32,7 @@ services:
       - "traefik.http.routers.router1.service=jenkins"
       - "traefik.http.services.jenkins.loadbalancer.server.port=8083"
     ports:
-      - "50000:50000"
-      - "8083:8083"
+      - "50000:50000" # Should route these through Traefik
     networks:
       - default
     environment:
@@ -50,9 +53,6 @@ services:
       - "traefik.http.routers.router2.entrypoints=web"
       - "traefik.http.routers.router2.service=sonarqube"
       - "traefik.http.services.sonarqube.loadbalancer.server.port=9000"
-    ports:
-      - "9000:9000"
-      - "9092:9092"
     networks:
       - default
     environment:
@@ -70,7 +70,7 @@ services:
       - sonar-postgres
   sonar-postgres:
     image: postgres:11.10-alpine
-    container_name: sonarqube_postgress
+    container_name: pg_sonarqube
     ports:
       - $SONARQUBE_DB_PORT:5432
     environment:
@@ -85,8 +85,35 @@ services:
       nofile:
         soft: 32000
         hard: 40000
+  gitlab.local.net:
+    container_name: gitlab
+    image: 'gitlab/gitlab-ee:13.5.3-ee.0'
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.router3.rule=Host(`$GITLAB_SERVER_NAME`)"
+      - "traefik.http.routers.router3.entrypoints=web"
+      - "traefik.http.routers.router3.service=gitlab"
+      - "traefik.http.services.gitlab.loadbalancer.server.port=8085"
+      # SSH
+      - "traefik.tcp.routers.router4.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.router4.entrypoints=ssh-gitlab"
+      - "traefik.tcp.routers.router4.service=ssh"
+      - "traefik.tcp.services.ssh.loadbalancer.server.port=22"
+    restart: unless-stopped
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url "http://gitlab.local.net:8085"
+    networks:
+      - default
+    volumes:
+      - gitlab_config:/etc/gitlab
+      - gitlab_logs:/var/log/gitlab
+      - gitlab_data:/var/opt/gitlab
 volumes:
   jenkins_data: {}
   sonar_data: {}
   sonar_logs: {}
   sonar_db_volume: {}
+  gitlab_config: {}
+  gitlab_logs: {}
+  gitlab_data: {}
