@@ -65,6 +65,7 @@ git-server:1.9
 github:1.32.0
 github-api:1.116
 github-branch-source:2.9.1
+gitlab-plugin:1.5.13
 gradle:1.36
 handlebars:1.1.1
 handy-uri-templates-2-api:2.1.8-1.0
