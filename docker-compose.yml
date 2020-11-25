@@ -38,8 +38,6 @@ services:
       - "traefik.http.routers.router1.entrypoints=web"
       - "traefik.http.routers.router1.service=jenkins"
       - "traefik.http.services.jenkins.loadbalancer.server.port=8083"
-    ports:
-      - "50000:50000" # Should route traffic on 50000 through Traefik but no external agent in demo right now...
     networks:
       - default
     environment:
@@ -109,7 +107,8 @@ services:
     restart: unless-stopped
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url "http://gitlab.local.net"
+        external_url "${GITLAB_SERVER_FQDN}"
+        gitlab_rails['initial_root_password'] = "${GITLAB_ROOT_PASSWORD}"
     networks:
       - default
     volumes:
