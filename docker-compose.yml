@@ -100,7 +100,7 @@ services:
       - "traefik.http.routers.router3.rule=Host(`$GITLAB_SERVER_NAME`)"
       - "traefik.http.routers.router3.entrypoints=web"
       - "traefik.http.routers.router3.service=gitlab"
-      - "traefik.http.services.gitlab.loadbalancer.server.port=8085"
+      - "traefik.http.services.gitlab.loadbalancer.server.port=80"
       # SSH
       - "traefik.tcp.routers.router4.rule=HostSNI(`*`)"
       - "traefik.tcp.routers.router4.entrypoints=ssh-gitlab"
@@ -109,7 +109,7 @@ services:
     restart: unless-stopped
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url "http://gitlab.local.net:8085"
+        external_url "http://gitlab.local.net"
     networks:
       - default
     volumes:
