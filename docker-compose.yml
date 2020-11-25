@@ -6,7 +6,8 @@ services:
     container_name: "traefik"
     command:
       - "--log.level=DEBUG"
-      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--api.insecure=true" # To secure the api comment this out.
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
@@ -17,9 +18,15 @@ services:
       - default
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.local.net`)"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      # Uncomment below to secure the Dashboard with user: admin and password: password
+      #- "traefik.http.routers.dashboard.middlewares=auth"
+      #- "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$fYN6zOqK$$OX.AGKf1T/z4UcqfKSsg4."
     ports:
       - "80:80"
-      - "8080:8080" # Just for the dashboard
       - "22:22"
   jenkins.local.net:
     build: jenkins
@@ -32,7 +39,7 @@ services:
       - "traefik.http.routers.router1.service=jenkins"
       - "traefik.http.services.jenkins.loadbalancer.server.port=8083"
     ports:
-      - "50000:50000" # Should route these through Traefik
+      - "50000:50000" # Should route traffic on 50000 through Traefik but no external agent in demo right now...
     networks:
       - default
     environment:
