@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "G86uDj/wRk+rbhXwjVaGp9W+ie4JVbcEhQ+7sJyHHNqxzHBRawOCG2UyHV2FGGpkq1lflXCfKzdUwn3LwIGJiQ==",
+  "success": true,
+  "projectFilePath": "/Users/cpe/Development/ICA/samples/core/getting-started/unit-testing-using-dotnet-test/PrimeService/PrimeService.csproj",
+  "expectedPackageFiles": [
+    "/Users/cpe/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "/Users/cpe/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
