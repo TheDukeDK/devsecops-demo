@@ -45,6 +45,7 @@ services:
       - JENKINS_OPTS="--httpPort=8083"
       - JENKINS_ADMIN_USER=$JENKINS_ADMIN_USER
       - JENKINS_ADMIN_PASSWORD=$JENKINS_ADMIN_PASSWORD
+      - GITLAB_ROOT_PASSWORD=$GITLAB_ROOT_PASSWORD
       - CASC_JENKINS_CONFIG=$CASC_JENKINS_CONFIG
     volumes:
       - jenkins_data:/var/jenkins_home

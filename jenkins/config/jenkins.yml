@@ -112,8 +112,19 @@ credentials:
     domainCredentials:
       - credentials:
         - usernamePassword:
-              scope: GLOBAL
-              id: "gtilab-root"
-              username: "root"
-              password: "${GITLAB_ROOT_PASSWORD}"
-              description: "Username/Password Credentials for GitLab root. Used for cloning."
+            scope: GLOBAL
+            id: "gtilab-root"
+            username: "root"
+            password: "${GITLAB_ROOT_PASSWORD}"
+            description: "Username/Password Credentials for GitLab root. Used for cloning."
+        - usernamePassword:
+            scope: GLOBAL
+            id: "sonar-jenkins"
+            username: "jenkins"
+            password: "${JENKINS_ADMIN_PASSWORD}"
+            description: "Username/Password Credentials for SonarQube jenkins user."
+        - gitLabApiTokenImpl:
+            scope: GLOBAL
+            id: "gitlab-token"
+            apiToken: "{AQAAABAAAAAQPDjGtPG8R2Ka2/xVfl9Rnb4PqvQBWwuOX07USdb3v0E=}" # This is a dummy value and must be updated.
+            description: "gitlab-token"
