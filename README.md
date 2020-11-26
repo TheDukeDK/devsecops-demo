@@ -33,7 +33,7 @@ Below is a list of todo's that need to be done before it is considered complete 
 * Docker
 * Docker Compose
 
-Add the following to hosts file.
+Add the following to `hosts` file on the computerrunning docker. 
 
 ```
 # Local stuff
