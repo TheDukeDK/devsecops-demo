@@ -16,9 +16,9 @@ The repository includes some open source license code to use for the demo and ev
 
 Below is a list of todo's that need to be done before it is considered complete enough to be of use.
 
-* Need to evaluate what more needs to go into the `initial-deploy.sh` script. The purpose of this script is to bootstrap through the different tools API's what cannot be done statically in the containers.
+* Jenkins Configuration as Code(JCasC): Need pre configure credentials for GitLab admin user `root` so we can use this to clone the repository during pipeline runs.
 
-* Jenkins Configuration as Code(JCasC) needs to pre configure the job which will run and demonstrate the initial DevSecOps CI/CD pipeline. The intent is to preconfigure a **seed(JobDSL)** job. After initial Jenkins start this seed job will be executed and setup all other jobs and pipelines.
+* Jenkins Configuration as Code(JCasC): Need to pre configure the job which will run and demonstrate the initial DevSecOps CI/CD pipeline. The intent is to preconfigure a **seed job(JobDSL)**. After initial Jenkins start this seed job will be executed and setup all other jobs and pipelines.
 
 * The JobDsl script needs to be completed.
 
@@ -27,6 +27,8 @@ Below is a list of todo's that need to be done before it is considered complete 
 * This **README** needs to be finalized and all manual configuration included.
 
 * This repo needs to be tested on MAC and Windows.
+
+* Need to evaluate what more needs to go into the `initial-deploy.sh` script. The purpose of this script is to bootstrap through the different tools API's what cannot be done statically in the containers.
 
 ## Pre-requisites
 
