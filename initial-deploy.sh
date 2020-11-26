@@ -6,6 +6,9 @@ JENKINS_ADMIN_PASSWORD=${JENKINS_ADMIN_PASSWORD:=password}
 
 set -e
 
+# Get needed ENV variables
+source ./sourceme
+
 # Bring up the containers
 docker-compose up -d
 

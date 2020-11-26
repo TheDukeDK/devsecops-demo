@@ -107,3 +107,13 @@ unclassified:
           skipScmCause: true
           skipUpstreamCause: true
 
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+        - usernamePassword:
+              scope: GLOBAL
+              id: "gtilab-root"
+              username: "root"
+              password: "${GITLAB_ROOT_PASSWORD}"
+              description: "Username/Password Credentials for GitLab root. Used for cloning."
