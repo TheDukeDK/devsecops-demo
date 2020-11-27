@@ -10,19 +10,20 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '1'))
     }
     stages {
-        stage('Checkout') {
-            steps {
-                checkout([$class: 'GitSCM', 
-                    branches: [[name: '*/master']], 
-                    doGenerateSubmoduleConfigurations: false, 
-                    extensions: [[$class: 'CleanBeforeCheckout'], 
-                        [$class: 'PruneStaleBranch'], 
-                        [$class: 'LocalBranch', 
-                        localBranch: 'master']], 
-                    submoduleCfg: [], 
-                    userRemoteConfigs: [[credentialsId: 'gtilab-root', url: 'http://gitlab.local.net/root/devsecops-demo.git']]])
-            }
-        }
+        
+        //stage('Checkout') {
+        //    steps {
+        //        checkout([$class: 'GitSCM', 
+        //            branches: [[name: '*/master']], 
+        //            doGenerateSubmoduleConfigurations: false, 
+        //            extensions: [[$class: 'CleanBeforeCheckout'], 
+        //                [$class: 'PruneStaleBranch'], 
+        //                [$class: 'LocalBranch', 
+        //                localBranch: 'master']], 
+        //            submoduleCfg: [], 
+        //            userRemoteConfigs: [[credentialsId: 'gtilab-root', url: 'http://gitlab.local.net/root/devsecops-demo.git']]])
+        //    }
+        //}
         stage('Build & Analyse') {
             parallel {
                     stage('Build'){ steps {dir("${CHECKOUT}"){sh 'echo build'}}}
