@@ -102,24 +102,28 @@ unclassified:
           skipScmCause: true
           skipUpstreamCause: true
 
+security:
+  GlobalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+
 credentials:
   system:
     domainCredentials:
       - credentials:
         - usernamePassword:
             scope: GLOBAL
-            id: "gtilab-root"
+            id: "root-gitlab"
             username: "root"
             password: "${GITLAB_ROOT_PASSWORD}"
             description: "Username/Password Credentials for GitLab root. Used for cloning."
         - usernamePassword:
             scope: GLOBAL
-            id: "sonar-jenkins"
+            id: "jenkins-sonarqube"
             username: "jenkins"
             password: "${JENKINS_ADMIN_PASSWORD}"
             description: "Username/Password Credentials for SonarQube jenkins user."
         - gitLabApiTokenImpl:
             scope: GLOBAL
-            id: "gitlab-token"
+            id: "token-gitlab"
             apiToken: "{AQAAABAAAAAQPDjGtPG8R2Ka2/xVfl9Rnb4PqvQBWwuOX07USdb3v0E=}" # This is a dummy value and must be updated.
             description: "gitlab-token"
