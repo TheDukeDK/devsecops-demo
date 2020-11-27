@@ -2,11 +2,8 @@
 pipeline {
     agent any 
     environment {
-        CHECKOUT = "checkout"
-        BRANCH = "master"
-        REPO_URL = "http://gitlab.local.net/root/devsecops-demo.git"
-        REPO_CREDS = "gitlab-root"
-        DEPLOY_ID = "Dummy"
+        CHECKOUT = 'checkout'
+        DEPLOY_ID = 'Dummy'
     }
     options {
         disableConcurrentBuilds()
@@ -15,15 +12,15 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM',
-                          branches: [[name: "*/${BRANCH}"]],
-                          doGenerateSubmoduleConfigurations: false,
-                          extensions: [[$class: 'PruneStaleBranch'],
-                                       [$class: 'CleanBeforeCheckout'],
-                                       [$class: 'LocalBranch', localBranch: "${BRANCH}"],
-                                       [$class: 'RelativeTargetDirectory', relativeTargetDir: "${CHECKOUT}"]],
-                          submoduleCfg: [],
-                          userRemoteConfigs: [[credentialsId: "${REPO_CREDS}", url: "${REPO_URL}"]]])
+                checkout([$class: 'GitSCM', 
+                    branches: [[name: '*/master']], 
+                    doGenerateSubmoduleConfigurations: false, 
+                    extensions: [[$class: 'CleanBeforeCheckout'], 
+                        [$class: 'PruneStaleBranch'], 
+                        [$class: 'LocalBranch', 
+                        localBranch: 'master']], 
+                    submoduleCfg: [], 
+                    userRemoteConfigs: [[credentialsId: 'gtilab-root', url: 'http://gitlab.local.net/root/devsecops-demo.git']]])
             }
         }
         stage('Build & Analyse') {
