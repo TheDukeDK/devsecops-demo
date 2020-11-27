@@ -127,3 +127,24 @@ credentials:
             id: "token-gitlab"
             apiToken: "{AQAAABAAAAAQPDjGtPG8R2Ka2/xVfl9Rnb4PqvQBWwuOX07USdb3v0E=}" # This is a dummy value and must be updated.
             description: "gitlab-token"
+
+jobs:
+  - script: |
+      job('seed') {
+        description('Run to create/restore all pipelines.')
+        scm {
+          git {
+            remote {
+              name('origin')
+              url('http://gitlab.local.net/root/devsecops-demo.git')
+              credentials('root-gitlab')
+            }
+            branch('master')
+          }
+        }
+        steps {
+          dsl {
+            external('pipelines/dsl/dsl.groovy')
+          }
+        }
+      }
