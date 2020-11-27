@@ -12,7 +12,13 @@ pipeline {
     stages {
         stage('Build & Analyse') {
             parallel {
-                    stage('Build'){ steps {dir("${CHECKOUT}"){sh 'echo build'}}}
+                    stage('Build'){ 
+                        steps {
+                            dir('eShopOnWeb') {
+                                sh 'dotnet build'
+                            }
+                        }
+                    }
                     stage('Unit Test'){ steps {dir("${CHECKOUT}"){sh 'echo build'}}}
                     stage('Static Analysis'){ steps {dir("${CHECKOUT}"){sh 'echo build'}}}
                 }

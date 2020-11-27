@@ -122,6 +122,11 @@ credentials:
             username: "jenkins"
             password: "${JENKINS_ADMIN_PASSWORD}"
             description: "Username/Password Credentials for SonarQube jenkins user."
+        - string:
+              scope: GLOBAL
+              id: "token-sonarqube"
+              secret: "{AQAAABAAAAAQPDjGtPG8R2Ka2/xVfl9Rnb4PqvQBWwuOX07USdb3v0E=}" # This is a dummy value and must be updated.
+              description: "SonarQube Jenkins user token. Used for SonarQube configuration."
         - gitLabApiTokenImpl:
             scope: GLOBAL
             id: "token-gitlab"
