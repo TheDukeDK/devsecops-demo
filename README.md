@@ -35,6 +35,10 @@ Below is a list of todo's that need to be done before it is considered complete 
 * Docker
 * Docker Compose
 
+A *reasonably* spec'd computer. GitLab is especially heavy to run and takes several minutes to get *healthy* on my laptop which is running Fedora and has 16GB memory and a quad core processor with 8 threads. 
+
+If running Docker Desktop on Windows or Mac you will probably need to **tune the settings** regarding memory for the VM to prevent swapping.
+
 Add the following to `hosts` file on the computerrunning docker. 
 
 ```

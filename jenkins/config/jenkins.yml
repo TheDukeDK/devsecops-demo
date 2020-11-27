@@ -1,8 +1,3 @@
-#configuration-as-code:
-#  deprecated: "warn"
-#  restricted: "warn"
-#  unknown: "warn"
-
 jenkins:
   systemMessage: | 
     Automatically configured(boostrapped) Jenkins docker instance. 
