@@ -14,11 +14,7 @@ pipeline {
             parallel {
                     stage('Build'){ 
                         steps {
-                            dir('eShopOnWeb') {
-                                sh 'pwd'
-                                sh 'ls -la'
-                                sh 'dotnet build'
-                            }
+                            sh 'dotnet build sample_projects/eShopOnWeb/eShopOnWeb.sln'
                         }
                     }
                     stage('Unit Test'){ steps {dir("${CHECKOUT}"){sh 'echo build'}}}
