@@ -3,9 +3,9 @@ pipeline {
     agent any 
     environment {
         CHECKOUT = "checkout"
-        BRANCH = "main"
-        REPO_URL = "git@gitlab.local.net:root/test.git"
-        REPO_CREDS = "Mine"
+        BRANCH = "master"
+        REPO_URL = "http://gitlab.local.net/root/devsecops-demo.git"
+        REPO_CREDS = "gitlab-root"
         DEPLOY_ID = "Dummy"
     }
     options {
