@@ -1,5 +1,5 @@
 pipelineJob("devsecops-demo") {
-    def sshRepo = ""
+    def repo = "http://gitlab.local.net/root/devsecops-demo.git"
 
     description("This job demonstrates different devsecops tools.")
 
@@ -14,10 +14,10 @@ pipelineJob("devsecops-demo") {
             scm {
                 git {
                     remote {
-                        credentials("??")
-                        url(sshRepo)
+                        credentials("gitlab-root")
+                        url(repo)
                     }
-                    branches('*/??')
+                    branches('*/master')
                 }
             }
             scriptPath("pipelines/devsecops.groovy")
