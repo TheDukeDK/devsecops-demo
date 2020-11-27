@@ -16,19 +16,19 @@ The repository includes some open source license code to use for the demo and ev
 
 Below is a list of todo's that need to be done before it is considered complete enough to be of use.
 
-* Jenkins Configuration as Code(JCasC): Need pre configure credentials for GitLab admin user `root` so we can use this to clone the repository during pipeline runs.
-
-* Jenkins Configuration as Code(JCasC): Need to pre configure the job which will run and demonstrate the initial DevSecOps CI/CD pipeline. The intent is to preconfigure a **seed job(JobDSL)**. After initial Jenkins start this seed job will be executed and setup all other jobs and pipelines.
-
-* The JobDsl script needs to be completed.
-
 * The initial pipeline, there may come more, needs to have the stages/steps filled out and run against the sample applications. Right now it it just a mock.
 
 * This **README** needs to be finalized and all manual configuration included.
+    * Update the gitlab token in gitlab and jenkins. Maybe generate from initial-deployment script and give from command line?
+    * Update the sonarqube token in jenkins.
 
 * This repo needs to be tested on MAC and Windows.
 
 * Need to evaluate what more needs to go into the `initial-deploy.sh` script. The purpose of this script is to bootstrap through the different tools API's what cannot be done statically in the containers.
+
+* Add nuget to jenkins config.
+
+* Trigger seed job from initial-deployment.sh script
 
 ## Pre-requisites
 
@@ -87,6 +87,8 @@ Waiting for gitlab to be healthy. Be patient, may take a few minutes.
 ```
 
 Once gitlab is healthy the `initial-deploy.sh` script pushes **this** repository to gitlab http://gitlab.local.net/root/devsecops-demo. 
+
+Once **all** application are up you can run the **seed** job manually. This will generate the **pipeline** job(s) which can then be ran for demo purposes.
 
 * http://traefik.local.net : Proxies all the applications. The Dashboard is not secured. 
 * http://jenkins.local.net : Jenkins CI server. User is `jenkins` and password is `password`.
