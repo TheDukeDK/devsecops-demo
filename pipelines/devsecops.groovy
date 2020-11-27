@@ -15,6 +15,8 @@ pipeline {
                     stage('Build'){ 
                         steps {
                             dir('eShopOnWeb') {
+                                sh 'pwd'
+                                sh 'ls -la'
                                 sh 'dotnet build'
                             }
                         }
