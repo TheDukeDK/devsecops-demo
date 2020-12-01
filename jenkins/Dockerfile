@@ -29,14 +29,15 @@ RUN wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
     && chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg \
     && chown root:root /etc/apt/sources.list.d/microsoft-prod.list
 
-RUN apt-get update \
+RUN apt-get update -qq \
   && apt-get install -y apt-transport-https \
-  && apt-get update \
-  && apt-get install -y dotnet-sdk-5.0
+  && apt-get install -y dotnet-sdk-5.0 nodejs nuget
 
-  RUN dotnet tool install --global dotnet-sonarscanner --version 5.0.4
+RUN dotnet tool install --global dotnet-sonarscanner --version 5.0.4
 
-  ENV PATH="${PATH}:/var/jenkins_home/.dotnet/tools"
+ENV PATH="${PATH}:/var/jenkins_home/.dotnet/tools"
+
+#RUN apt-get update -qq && apt-get install npm
 
 # drop back to the regular jenkins user - good practice
 USER jenkins
