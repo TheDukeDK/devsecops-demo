@@ -2,32 +2,43 @@
 pipeline {
     agent any 
     environment {
-        CHECKOUT = 'checkout'
         DEPLOY_ID = 'Dummy'
     }
     options {
         disableConcurrentBuilds()
-        buildDiscarder(logRotator(numToKeepStr: '1'))
+        buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     stages {
-        stage('Build & Analyse') {
+        stage('Build & Analyse eShop') {
             parallel {
-                    stage('Build'){ 
+                    stage('Build eShop'){ 
+                        steps {sh 'dotnet build sample_projects/eShopOnWeb/eShopOnWeb.sln'}
+                    }
+                    stage('Unit Test'){ 
                         steps {
-                            sh 'dotnet build sample_projects/eShopOnWeb/eShopOnWeb.sln'
+                            dir("sample_projects/eShopOnWeb"){
+                                sh 'echo build'
+                            }
                         }
                     }
-                    stage('Unit Test'){ steps {dir("${CHECKOUT}"){sh 'echo build'}}}
-                    stage('Static Analysis'){ steps {dir("${CHECKOUT}"){sh 'echo build'}}}
+                    stage('Static Analysis'){ 
+                        steps {
+                            dir("sample_projects/eShopOnWeb"){
+                                withSonarQubeEnv('sonarqube.local.net') {
+                                    sh 'env | sort'
+                                }
+                            }
+                        }
+                    }
                 }
         }
         stage('Evaluate') {
-            steps { dir("${CHECKOUT}") {sh "echo add SQ QG here!"}}
+            steps { sh "echo add SQ QG here!" }
         }
         stage('Pack') {
-            steps {dir("${CHECKOUT}"){sh "echo Pack or prepare artifact for deployment"}}
+            steps {sh "echo Pack or prepare artifact for deployment"}
         }
-        stage ('Deploy') {steps {dir("${CHECKOUT}") {sh "echo Do a deploy here."}}}
+        stage ('Deploy') {steps {sh "echo Do a deploy here."}}
         stage('Functional Tests') {
             parallel {
                stage('SAST') { steps { sh "echo Run Security Tests"} }
@@ -37,24 +48,16 @@ pipeline {
     }
     post {
         success {
-            dir("${CHECKOUT}") {
-                sh "echo Do something on success!"
-            }
+            sh "echo Do something on success!"
         }
         unstable {
-            dir("${CHECKOUT}") {
-                sh "echo Do something on unstable!"
-            }
+            sh "echo Do something on success!"
         }
         failure {
-            dir("${CHECKOUT}") {
-                sh "echo Do something on failure!"
-            }
+            sh "echo Do something on success!"
         }
         always {
-            dir("${CHECKOUT}") {
-                sh "echo Do something on always here!"
-            }
+            sh "echo Do something on success!"
         }
     }
 }
