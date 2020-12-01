@@ -28,12 +28,12 @@ pipeline {
                         }
                     }
                 }
-                stage('End Analysis'){
-                    steps {
-                        dir("sample_projects/eShopOnWeb"){
-                            withSonarQubeEnv('sonarqube.local.net') {sh "dotnet-sonarscanner end"}
-                        }
-                    }
+            }
+        }
+        stage('End Analysis'){
+            steps {
+                dir("sample_projects/eShopOnWeb"){
+                    withSonarQubeEnv('sonarqube.local.net') {sh "dotnet-sonarscanner end"}
                 }
             }
         }

@@ -97,7 +97,7 @@ unclassified:
   sonarGlobalConfiguration:
     installations:
       - name: "sonarqube.local.net"
-        serverUrl: "http://sonarqube.local.net"
+        serverUrl: "http://sonarqube.local.net:9000"
         triggers:
           skipScmCause: true
           skipUpstreamCause: true
