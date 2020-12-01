@@ -2,6 +2,8 @@
 pipeline {
     agent any 
     environment {
+        ORGANIZATION = "eShopOnWeb"
+        PROJECT_NAME = "eShopOnWeb"
         DEPLOY_ID = 'Dummy'
     }
     options {
@@ -11,26 +13,29 @@ pipeline {
     stages {
         stage('Build & Analyse eShop') {
             parallel {
-                    stage('Build eShop'){ 
-                        steps {sh 'dotnet build sample_projects/eShopOnWeb/eShopOnWeb.sln'}
-                    }
-                    stage('Unit Test'){ 
-                        steps {
-                            dir("sample_projects/eShopOnWeb"){
-                                sh 'echo build'
-                            }
-                        }
-                    }
-                    stage('Static Analysis'){ 
-                        steps {
-                            dir("sample_projects/eShopOnWeb"){
-                                withSonarQubeEnv('sonarqube.local.net') {
-                                    sh 'env | sort'
-                                }
-                            }
+                stage('Build eShop'){ 
+                    steps {
+                        dir("sample_projects/eShopOnWeb"){
+                            withSonarQubeEnv('sonarqube.local.net'){sh "dotnet-sonarscanner begin /k:eShopOnWeb"}
+                            sh 'dotnet build eShopOnWeb.sln'
                         }
                     }
                 }
+                stage('Unit Test'){
+                    steps {
+                        dir("sample_projects/eShopOnWeb"){
+                            sh 'echo Run tests'
+                        }
+                    }
+                }
+                stage('End Analysis'){
+                    steps {
+                        dir("sample_projects/eShopOnWeb"){
+                            withSonarQubeEnv('sonarqube.local.net') {sh "dotnet-sonarscanner end"}
+                        }
+                    }
+                }
+            }
         }
         stage('Evaluate') {
             steps { sh "echo add SQ QG here!" }

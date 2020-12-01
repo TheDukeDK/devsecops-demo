@@ -34,5 +34,9 @@ RUN apt-get update \
   && apt-get update \
   && apt-get install -y dotnet-sdk-5.0
 
+  RUN dotnet tool install --global dotnet-sonarscanner --version 5.0.4
+
+  ENV PATH="${PATH}:/var/jenkins_home/.dotnet/tools"
+
 # drop back to the regular jenkins user - good practice
 USER jenkins
