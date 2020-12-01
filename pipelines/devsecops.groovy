@@ -35,7 +35,7 @@ pipeline {
                 dir("sample_projects/eShopOnWeb"){
                     withSonarQubeEnv('sonarqube.local.net') {sh "dotnet-sonarscanner end"}
                     script {
-                        sh 'sleep 30' 
+                        //sh 'sleep 30' 
                         timeout(time: 10, unit: 'MINUTES') {
                             def qg = waitForQualityGate()
                             if (qg.status != 'OK') {error "The SonarQube Quality Gate has failed with: ${qg.status}!..."}
