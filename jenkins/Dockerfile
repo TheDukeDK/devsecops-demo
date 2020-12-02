@@ -31,7 +31,7 @@ RUN wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
 
 RUN apt-get update -qq \
   && apt-get install -y apt-transport-https \
-  && apt-get install -y dotnet-sdk-5.0 nodejs nuget
+  && apt-get install -y dotnet-sdk-3.1 dotnet-sdk-5.0 nodejs nuget
 
 RUN dotnet tool install --global dotnet-sonarscanner --version 5.0.4
 
