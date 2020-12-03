@@ -1,7 +1,7 @@
 jenkins:
   systemMessage: | 
     Automatically configured(boostrapped) Jenkins docker instance. 
-    When making changes to the system configuration consider if they should be part of the bootstrapping."
+    When making changes to the system configuration consider if they should be part of the bootstrapping.
 
   markupFormatter:
     rawHtml:
@@ -52,6 +52,33 @@ jenkins:
   
   disableRememberMe: true
 
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+        - usernamePassword:
+            scope: GLOBAL
+            id: "root-gitlab"
+            username: "root"
+            password: "${GITLAB_ROOT_PASSWORD}"
+            description: "Username/Password Credentials for GitLab root. Used for cloning."
+        - usernamePassword:
+            scope: GLOBAL
+            id: "jenkins-sonarqube"
+            username: "jenkins"
+            password: "${JENKINS_ADMIN_PASSWORD}"
+            description: "Username/Password Credentials for SonarQube jenkins user."
+        - string:
+              scope: GLOBAL
+              id: "token-sonarqube"
+              secret: "{AQAAABAAAAAQPDjGtPG8R2Ka2/xVfl9Rnb4PqvQBWwuOX07USdb3v0E=}" # This is a dummy value and must be updated.
+              description: "token-sonarqube"
+        - gitLabApiTokenImpl:
+            scope: GLOBAL
+            id: "token-gitlab"
+            apiToken: "{AQAAABAAAAAQPDjGtPG8R2Ka2/xVfl9Rnb4PqvQBWwuOX07USdb3v0E=}" # This is a dummy value and must be updated.
+            description: "gitlab-token"
+
 tool:
   git:
     installations:
@@ -98,6 +125,7 @@ unclassified:
     installations:
       - name: "sonarqube.local.net"
         serverUrl: "http://sonarqube.local.net:9000"
+        serverAuthenticationToken: "token-sonarqube"
         triggers:
           skipScmCause: true
           skipUpstreamCause: true
@@ -105,33 +133,6 @@ unclassified:
 security:
   GlobalJobDslSecurityConfiguration:
     useScriptSecurity: false
-
-credentials:
-  system:
-    domainCredentials:
-      - credentials:
-        - usernamePassword:
-            scope: GLOBAL
-            id: "root-gitlab"
-            username: "root"
-            password: "${GITLAB_ROOT_PASSWORD}"
-            description: "Username/Password Credentials for GitLab root. Used for cloning."
-        - usernamePassword:
-            scope: GLOBAL
-            id: "jenkins-sonarqube"
-            username: "jenkins"
-            password: "${JENKINS_ADMIN_PASSWORD}"
-            description: "Username/Password Credentials for SonarQube jenkins user."
-        - string:
-              scope: GLOBAL
-              id: "token-sonarqube"
-              secret: "{AQAAABAAAAAQPDjGtPG8R2Ka2/xVfl9Rnb4PqvQBWwuOX07USdb3v0E=}" # This is a dummy value and must be updated.
-              description: "SonarQube Jenkins user token. Used for SonarQube configuration."
-        - gitLabApiTokenImpl:
-            scope: GLOBAL
-            id: "token-gitlab"
-            apiToken: "{AQAAABAAAAAQPDjGtPG8R2Ka2/xVfl9Rnb4PqvQBWwuOX07USdb3v0E=}" # This is a dummy value and must be updated.
-            description: "gitlab-token"
 
 jobs:
   - script: |
