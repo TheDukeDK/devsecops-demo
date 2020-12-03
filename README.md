@@ -31,7 +31,8 @@ Below is a list of todo's that need to be done before it is considered complete 
 * Trigger seed job from initial-deployment.sh script
 
 ## Pre-requisites
-
+* Bash: For the bootstrap.sh script. Otherwise you can do manually.
+* Curl: For the bootstrap.sh script. Otherwise you can do manually.
 * Docker
 * Docker Compose
 
