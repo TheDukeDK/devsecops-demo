@@ -33,11 +33,9 @@ RUN apt-get update -qq \
   && apt-get install -y apt-transport-https \
   && apt-get install -y dotnet-sdk-3.1 dotnet-sdk-5.0 nodejs nuget
 
-RUN dotnet tool install --global dotnet-sonarscanner --version 5.0.4
+RUN dotnet tool install --tool-path /usr/local/bin dotnet-sonarscanner --version 5.0.4
 
-ENV PATH="${PATH}:/var/jenkins_home/.dotnet/tools"
-
-#RUN apt-get update -qq && apt-get install npm
+ENV PATH="${PATH}:/usr/local/bin/tools"
 
 # drop back to the regular jenkins user - good practice
 USER jenkins
