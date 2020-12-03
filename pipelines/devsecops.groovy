@@ -21,10 +21,17 @@ pipeline {
                         }
                     }
                 }
-                stage('Unit Test'){
+                stage('Unit Tests'){
                     steps {
                         dir("sample_projects/eShopOnWeb"){
-                            sh 'echo Run tests'
+                            sh 'dotnet test tests/UnitTests/UnitTests.csproj'
+                        }
+                    }
+                }
+                stage('Integration Tests'){
+                    steps {
+                        dir("sample_projects/eShopOnWeb"){
+                            sh 'dotnet test tests/IntegrationTests/IntegrationTests.csproj'
                         }
                     }
                 }
