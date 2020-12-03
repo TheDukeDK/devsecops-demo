@@ -55,12 +55,7 @@ pipeline {
             steps {sh "echo Pack or prepare artifact for deployment"}
         }
         stage ('Deploy') {steps {sh "echo Do a deploy here."}}
-        stage('Functional Tests') {
-            parallel {
-               stage('SAST') { steps { sh "echo Run Security Tests"} }
-               stage('DAST') { steps { sh "echo Run Security Tests"} }
-            }
-        }
+        stage('DAST') {steps { sh "echo Run Security Tests"}}
     }
     post {
         success {
