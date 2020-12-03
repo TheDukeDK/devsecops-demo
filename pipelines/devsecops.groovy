@@ -11,29 +11,26 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     stages {
-        stage('Build & Analyse eShop') {
-            parallel {
-                stage('Build eShop'){ 
-                    steps {
-                        dir("sample_projects/eShopOnWeb"){
-                            withSonarQubeEnv('sonarqube.local.net'){sh "dotnet-sonarscanner begin /k:eShopOnWeb"}
-                            sh 'dotnet build eShopOnWeb.sln'
-                        }
-                    }
+        
+        stage('Build eShop'){ 
+            steps {
+                dir("sample_projects/eShopOnWeb"){
+                    withSonarQubeEnv('sonarqube.local.net'){sh "dotnet-sonarscanner begin /k:eShopOnWeb"}
+                    sh 'dotnet build eShopOnWeb.sln'
                 }
-                stage('Unit Tests'){
-                    steps {
-                        dir("sample_projects/eShopOnWeb"){
-                            sh 'dotnet test tests/UnitTests/UnitTests.csproj'
-                        }
-                    }
+            }
+        }
+        stage('Unit Tests'){
+            steps {
+                dir("sample_projects/eShopOnWeb"){
+                    sh 'dotnet test tests/UnitTests/UnitTests.csproj'
                 }
-                stage('Integration Tests'){
-                    steps {
-                        dir("sample_projects/eShopOnWeb"){
-                            sh 'dotnet test tests/IntegrationTests/IntegrationTests.csproj'
-                        }
-                    }
+            }
+        }
+        stage('Integration Tests'){
+            steps {
+                dir("sample_projects/eShopOnWeb"){
+                    sh 'dotnet test tests/IntegrationTests/IntegrationTests.csproj'
                 }
             }
         }
