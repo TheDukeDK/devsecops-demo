@@ -34,7 +34,7 @@ pipeline {
                 }
             }
         }
-        stage('End Analysis'){
+        stage('Evaluate Static Analysis'){
             steps {
                 dir("sample_projects/eShopOnWeb"){
                     withSonarQubeEnv('sonarqube.local.net') {sh "dotnet-sonarscanner end"}
@@ -48,11 +48,13 @@ pipeline {
                 }
             }
         }
-        stage('Evaluate') {
-            steps { sh "echo add SQ QG here!" }
-        }
-        stage('Pack') {
-            steps {sh "echo Pack or prepare artifact for deployment"}
+        stage('Vulnerability Scan') {
+            parallel {
+                stage('Scan libs') {steps { sh "echo Scan Libraries" }}
+                stage('Scan Terraform') {steps { sh "echo Scan Terraform" }}
+                stage('Scan k8s Yaml') {steps { sh "echo Scan K8s yaml files" }}
+                stage('Scan more??') {steps { sh "echo Scan more?" }}
+            }
         }
         stage ('Deploy') {steps {sh "echo Do a deploy here."}}
         stage('DAST') {steps { sh "echo Run Security Tests"}}

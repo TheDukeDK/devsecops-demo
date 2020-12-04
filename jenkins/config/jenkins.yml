@@ -71,7 +71,7 @@ credentials:
         - string:
               scope: GLOBAL
               id: "token-sonarqube"
-              secret: "{AQAAABAAAAAQPDjGtPG8R2Ka2/xVfl9Rnb4PqvQBWwuOX07USdb3v0E=}" # This is a dummy value and must be updated.
+              secret: "{AQAAABAAAAAgHSnoLITvaWex6wYXO2MT5+MiDA9AdNjmNaZfN5Dh6UHwV615JtsWVh628tjWykiw}" # This is a dummy value and must be updated.
               description: "token-sonarqube"
         - gitLabApiTokenImpl:
             scope: GLOBAL
@@ -125,7 +125,7 @@ unclassified:
     installations:
       - name: "sonarqube.local.net"
         serverUrl: "http://sonarqube.local.net:9000"
-        serverAuthenticationToken: "token-sonarqube"
+        credentialsId: "token-sonarqube"
         triggers:
           skipScmCause: true
           skipUpstreamCause: true
