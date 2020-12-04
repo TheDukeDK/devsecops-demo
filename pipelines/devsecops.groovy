@@ -23,7 +23,7 @@ pipeline {
         stage('Unit Tests'){
             steps {
                 dir("sample_projects/eShopOnWeb"){
-                    sh 'dotnet test tests/UnitTests/UnitTests.csproj'
+                    sh 'dotnet test tests/UnitTests/UnitTests.csproj /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=cobertura'
                 }
             }
         }
