@@ -68,7 +68,13 @@ pipeline {
                         }
                     }
                 }
-                stage('Scan libs') {steps { sh "echo Scan Libraries" }}
+                stage('Scan libs(NPM Audit)') {
+                    steps {
+                        dir("sample_projects/eShopOnContainers/src/Web/WebSPA"){
+                            sh "npm audit" 
+                        }
+                    }
+                }
                 stage('Scan Terraform') {steps { sh "echo Scan Terraform" }}
                 stage('Scan k8s Yaml(Checkov)') {
                     steps { 
