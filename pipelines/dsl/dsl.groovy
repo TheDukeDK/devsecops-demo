@@ -4,7 +4,14 @@ pipelineJob("devsecops-demo") {
 
     disabled(false)
     keepDependencies(false)
-    configure { it / 'triggers' / 'hudson.triggers.SCMTrigger' / 'spec' }
+    triggers {
+        gitlabPush {
+            buildOnPushEvents(true)
+            enableCiSkip(false)
+            setBuildDescription(false)
+            rebuildOpenMergeRequest('never')
+        }
+    }
 
     definition {
         cpsScm {
