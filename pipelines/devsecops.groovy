@@ -70,7 +70,13 @@ pipeline {
                 }
                 stage('Scan libs') {steps { sh "echo Scan Libraries" }}
                 stage('Scan Terraform') {steps { sh "echo Scan Terraform" }}
-                stage('Scan k8s Yaml') {steps { sh "echo Scan K8s yaml files" }}
+                stage('Scan k8s Yaml(Checkov)') {
+                    steps { 
+                        dir("sample_projects/eShopOnContainers"){
+                            sh 'checkov -d k8s'
+                        }
+                    }
+                }
                 stage('Scan more??') {steps { sh "echo Scan more?" }}
             }
         }
