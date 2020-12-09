@@ -67,7 +67,7 @@ To set this value permanently, update the vm.max_map_count setting in /etc/sysct
 From the root of the repository.
 
 * `docker-compose build`
-* `./initial-deploy.sh`
+* `./bootstrap.sh`
 
 Now you need to wait for the stack to come up.
 ```
@@ -96,9 +96,11 @@ Once **all** application are up you can run the **seed** job manually. This will
 * http://gitlab.local.net : VCS repo manager. User is `root` and password is `passsword`.
 * http://sonarqube.local.net : Static analysis tool. A Jenkins user is also created with the same credentials as for Jenkins itself, i.e. user is `jenkins` and password is `password`. The default user `admin` is also available with password `admin`.
 
-## Post Bootstrap Configuration
+**NOTE:** You must do the **Post Configration** Steps describe below before the generated pipeline(s) will run successfully.
 
-Unfortunately we cannot full bootstrap the tools so they integrate together. The following steps must be done **after** the **first** run of the demo with the `bootstrap.sh` script and only once.
+## Post Configuration
+
+Unfortunately we cannot fully bootstrap the tools so they integrate together. The following steps must be done **after** the **first** run of the demo with the `bootstrap.sh` script and only **once**.
 
 1. Update the token `token-sonarqube` in Jenkins. 
 
