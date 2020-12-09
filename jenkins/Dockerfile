@@ -1,3 +1,4 @@
+# Note that Jenkins is based on Debian 9
 FROM jenkins/jenkins:2.249.3
 
 ENV JENKINS_ADMIN_USER=$JENKINS_ADMIN_USER \
@@ -16,16 +17,19 @@ RUN wget -q -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearm
     && chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg \
     && chown root:root /etc/apt/sources.list.d/microsoft-prod.list
 
-# Install needed tools
-RUN apt-get -qq update && apt-get install -y nano gradle maven ant nuget apt-transport-https dotnet-sdk-3.1 dotnet-sdk-5.0
+# Install needed dependencies and build tools
 RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
-RUN apt-get install -y nodejs
+RUN apt-get -qq update && apt-get install -y nano gradle maven ant nuget nodejs \
+    build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev \
+    libreadline-dev libffi-dev apt-transport-https dotnet-sdk-3.1 dotnet-sdk-5.0 gnupg lsb-release
 
+# Install the sonarqube scanner
 RUN dotnet tool install --global dotnet-sonarscanner --version 5.0.4
 RUN cp -r /root/.dotnet/tools /usr/local/bin
 RUN chmod -R 777 /usr/local/bin/tools
 
-# Docker and Compose
+# Install Docker and Compose. Used to build docker images.
+# Note that it is expected that the docker.sock is mounted into this container.
 RUN apt-get update -qq && apt-get install -y apt-transport-https ca-certificates gnupg-agent software-properties-common
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 RUN apt-key fingerprint 0EBFCD88
@@ -35,11 +39,19 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-c
 RUN chmod +x /usr/local/bin/docker-compose
 RUN ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
-# Install trivy for container scanning
-RUN apt-get install wget apt-transport-https gnupg lsb-release
+# Install Trivy for scanning docker images
 RUN wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
 RUN echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
-RUN apt-get update -qq && apt-get install -y -q trivy
+RUN apt-get update -qq && apt-get install -y -q trivy 
+
+# Install python and checkov for scanning Infrastructure as Code. Have to build it ourselves :-(
+RUN curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz \
+    && tar -xf Python-3.7.3.tar.xz \
+    && cd Python-3.7.3 \
+    && ./configure && make -j 3 \
+    && make install
+RUN pip3 install --upgrade pip && pip3 install --upgrade setuptools
+RUN pip install checkov
 
 # Skip setup wizard for Jenkins
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
