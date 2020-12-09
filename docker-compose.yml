@@ -50,6 +50,7 @@ services:
       - GITLAB_ROOT_PASSWORD=$GITLAB_ROOT_PASSWORD
       - CASC_JENKINS_CONFIG=$CASC_JENKINS_CONFIG
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - jenkins_data:/var/jenkins_home
   sonarqube.local.net:
     build: sonarqube
