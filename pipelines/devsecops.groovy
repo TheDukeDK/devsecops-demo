@@ -20,6 +20,13 @@ pipeline {
                 }
             }
         }
+        stage('Build eShop Docker Images'){ 
+            steps {
+                dir("sample_projects/eShopOnWeb"){
+                    sh 'docker-compose build'
+                }
+            }
+        }
         stage('Unit Tests'){
             steps {
                 dir("sample_projects/eShopOnWeb"){
@@ -50,6 +57,14 @@ pipeline {
         }
         stage('Vulnerability Scan') {
             parallel {
+                stage('Scan images') {
+                    steps {
+                        dir("sample_projects/eShopOnWeb"){
+                            sh 'echo "If you run trivy with --exit-code=1 it will FAIL the build."'
+                            sh 'trivy image eshopwebmvc'
+                        }
+                    }
+                }
                 stage('Scan libs') {steps { sh "echo Scan Libraries" }}
                 stage('Scan Terraform') {steps { sh "echo Scan Terraform" }}
                 stage('Scan k8s Yaml') {steps { sh "echo Scan K8s yaml files" }}
