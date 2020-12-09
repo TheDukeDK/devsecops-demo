@@ -73,7 +73,10 @@ pipeline {
                 stage('Scan k8s Yaml(Checkov)') {
                     steps { 
                         dir("sample_projects/eShopOnContainers"){
-                            sh 'checkov -d k8s'
+                            sh 'echo "Remove the -s argument to have checkov fail the build."'
+                            sh 'checkov -s -d k8s'
+                            sh 'echo "Listing out the configured checks."'
+                            sh 'checkov -l'
                         }
                     }
                 }
