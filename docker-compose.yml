@@ -42,11 +42,6 @@ services:
       - "traefik.http.routers.router1.entrypoints=web"
       - "traefik.http.routers.router1.service=jenkins"
       - "traefik.http.services.jenkins.loadbalancer.server.port=8083"
-    networks:
-      default:
-        aliases:
-          - "sonarqube.local.net"
-          - "gitlab.local.net"
     environment:
       - JENKINS_SLAVE_AGENT_PORT=50000
       - JENKINS_OPTS="--httpPort=8083"
@@ -66,11 +61,6 @@ services:
       - "traefik.http.routers.router2.entrypoints=web"
       - "traefik.http.routers.router2.service=sonarqube"
       - "traefik.http.services.sonarqube.loadbalancer.server.port=9000"
-    networks:
-      default:
-        aliases:
-          - "jenkins.local.net"
-          - "gitlab.local.net"
     environment:
       - SONARQUBE_USER_NAME=$SONARQUBE_USER_NAME
       - SONARQUBE_USER_GROUP=$SONARQUBE_USER_GROUP
@@ -124,11 +114,6 @@ services:
       GITLAB_OMNIBUS_CONFIG: |
         external_url "${GITLAB_SERVER_FQDN}"
         gitlab_rails['initial_root_password'] = "${GITLAB_ROOT_PASSWORD}"
-    networks:
-      default:
-        aliases:
-          - "jenkins.local.net"
-          - "sonarqube.local.net"
     volumes:
       - gitlab_config:/etc/gitlab
       - gitlab_logs:/var/log/gitlab
