@@ -11,19 +11,22 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     stages {
-        
-        stage('Build eShop'){ 
-            steps {
-                dir("sample_projects/eShopOnWeb"){
-                    withSonarQubeEnv('sonarqube.local.net'){sh "dotnet-sonarscanner begin /k:eShopOnWeb"}
-                    sh 'dotnet build eShopOnWeb.sln'
+        stage('build') {
+            parallel {
+                stage('eShop Source'){ 
+                    steps {
+                        dir("sample_projects/eShopOnWeb"){
+                            withSonarQubeEnv('sonarqube.local.net'){sh "dotnet-sonarscanner begin /k:eShopOnWeb"}
+                            sh 'dotnet build eShopOnWeb.sln'
+                        }
+                    }
                 }
-            }
-        }
-        stage('Build eShop Docker Images'){ 
-            steps {
-                dir("sample_projects/eShopOnWeb"){
-                    sh 'docker-compose build'
+                stage('eShop Docker Images'){ 
+                    steps {
+                        dir("sample_projects/eShopOnWeb"){
+                            sh 'docker-compose build'
+                        }
+                    }
                 }
             }
         }
