@@ -82,9 +82,11 @@ pipeline {
                     steps { 
                         dir("sample_projects/eShopOnContainers"){
                             sh 'echo "Remove the -s argument to have checkov fail the build."'
-                            sh 'checkov -s -d k8s'
                             sh 'echo "Listing out the configured checks."'
                             sh 'checkov -l'
+                            sh 'checkov -s -d k8s'
+                            sh 'echo "Example running it from checkov docker image. Note that is must have absolute path."'
+                            sh "docker run --rm -v ${WORKSPACE}/sample_projects/eShopOnContainers/k8s:k8s bridgecrew/checkov -s -d /k8s --framework kubernetes"
                         }
                     }
                 }
