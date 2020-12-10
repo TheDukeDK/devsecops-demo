@@ -35,6 +35,7 @@ Below is a list of todo's that need to be done before it is considered complete 
 * Curl: For the bootstrap.sh script. Otherwise you can do manually.
 * Docker
 * Docker Compose
+* Network connection to Docker hub for first run to pull non built images.
 
 A *reasonably* spec'd computer. GitLab is especially heavy to run and takes several minutes to get *healthy* on my laptop which is running Fedora and has 16GB memory and a quad core processor with 8 threads. 
 
