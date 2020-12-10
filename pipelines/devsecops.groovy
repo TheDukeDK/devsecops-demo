@@ -80,6 +80,8 @@ pipeline {
                             sh 'echo "Remove the -s argument to have checkov fail the build."'
                             sh 'echo "Listing out the configured checks."'
                             sh 'checkov -l'
+                            sh 'checkov -s -d k8s -o'
+                            sh 'echo "Run it and produce a Junit report."'
                             sh 'checkov -s -d k8s -o junitxml 2>&1 | tee output.log'
                         }
                     }
