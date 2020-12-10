@@ -86,7 +86,7 @@ pipeline {
                             sh 'checkov -l'
                             sh 'checkov -s -d k8s'
                             sh 'echo "Example running it from checkov docker image. Note that is must have absolute path."'
-                            sh "docker run --rm -v ${WORKSPACE}/sample_projects/eShopOnContainers/k8s:k8s bridgecrew/checkov -s -d /k8s --framework kubernetes"
+                            sh "docker run --rm -v ${WORKSPACE}/sample_projects/eShopOnContainers/k8s:/k8s bridgecrew/checkov -s -d /k8s --framework kubernetes"
                         }
                     }
                 }
