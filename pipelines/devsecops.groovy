@@ -82,8 +82,8 @@ pipeline {
                             sh 'checkov -l'
                             sh 'checkov -s -d k8s -o'
                             sh 'echo "Run it and produce a Junit report."'
-                            sh 'checkov -s -d k8s -o junitxml > checkov.xml || true'
-                            junit "result.xml"
+                            sh 'checkov -s -d k8s -o junitxml > checkov.xml'
+                            junit "checkov.xml"
                         }
                     }
                 }
