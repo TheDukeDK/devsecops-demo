@@ -62,7 +62,7 @@ sysctl -w vm.max_map_count=262144
 
 To set this value permanently, update the vm.max_map_count setting in /etc/sysctl.conf. To verify after rebooting, run sysctl vm.max_map_count.
 
-## Quick Start
+## Initial Setup
 
 From the root of the repository.
 
@@ -87,24 +87,19 @@ Creating sonarqube    ... done
 Waiting for gitlab to be healthy. Be patient, may take a few minutes.
 ```
 
-Once gitlab is healthy the `initial-deploy.sh` script pushes **this** repository to gitlab http://gitlab.local.net/root/devsecops-demo. 
+Once gitlab is healthy the `bootstrap.sh` script pushes **this** repository to gitlab http://gitlab.local.net/root/devsecops-demo. 
 
-Once **all** application are up you can run the **seed** job manually. This will generate the **pipeline** job(s) which can then be ran for demo purposes.
+Unfortunately we cannot fully bootstrap the tools so they integrate together. In order to do this we need to create some tokens and credentials, which we cannot do until the applications are running. A chicken/egg scenario...
 
-* http://traefik.local.net : Proxies all the applications. The Dashboard is not secured. 
-* http://jenkins.local.net : Jenkins CI server. User is `jenkins` and password is `password`.
-* http://gitlab.local.net : VCS repo manager. User is `root` and password is `passsword`.
-* http://sonarqube.local.net : Static analysis tool. A Jenkins user is also created with the same credentials as for Jenkins itself, i.e. user is `jenkins` and password is `password`. The default user `admin` is also available with password `admin`.
+The following steps must be done **in this order** after the **first** run of the demo with the `bootstrap.sh` script. Remember to take a copy of all the tokens you create.
 
-**NOTE:** You must do the **Post Configration** Steps describe below before the generated pipeline(s) will run successfully.
+1. Create Username and Password credentila for cloning
 
-## Post Configuration
+    In Jenkins create a credential of type `Username with Password` with the name `root-gitlab`. Note that it **must be** named `root-gitlab`.
 
-Unfortunately we cannot fully bootstrap the tools so they integrate together. In order to do this we need to create some tokens, which we cannot do until the applications are running. A chicken/egg scenario...
+    ![](images/cloning-credential.png)
 
-The following steps must be done **after** the **first** run of the demo with the `bootstrap.sh` script and only **once**. Remember to take a copy of all the tokens you create.
-
-1. Create the token `token-sonarqube`. 
+2. Create the token `token-sonarqube`. 
 
     The bootstrap.sh script created a token for the jenkins user in SonarQube. You can use this or create one manually yourself.
 
@@ -114,8 +109,7 @@ The following steps must be done **after** the **first** run of the demo with th
 
     ![Jenkins SonarQube Token](images/jenkins-sonarqube-token.png)
 
-
-2. Create the token `token-gitlab`.
+3. Create the token `token-gitlab`.
 
     After logging in to gitlab. Go to admin users `Profile->Settings->Access Tokens`.
 
@@ -125,7 +119,7 @@ The following steps must be done **after** the **first** run of the demo with th
 
     ![Jenkins Gitlab Token](images/jenkins-gitlab-token.png)
 
-3. Configure SonarQube and Gitlab Connections.
+4. Configure SonarQube and Gitlab Connections.
 
     Go to `Manage Jenkins->Configure System->SonarQube servers` and use the newly created token.
 
@@ -135,13 +129,13 @@ The following steps must be done **after** the **first** run of the demo with th
 
     ![Gitlab Configuration](images/configure-gitlab.png)
 
-4. Allow WebHooks on local network for GitLab.
+5. Allow WebHooks on local network for GitLab.
 
     Go to `Global settings->Network->Outbound Requests`(The small wrench on top menu) and make sure the settings correspond to the image below.
 
     ![Gitlab Network Settings](images/gitlab-network.png)
 
-5. Create a WebHook From Gitlab To Jenkins demo Pipeline(s).
+6. Create a WebHook From Gitlab To Jenkins demo Pipeline(s).
 
     First you need to create a credential in **Jenkins** for the Jenkins user by going to the Jenkins users `Profile->Configure` and creating one. Make sure to **copy** it.
 
@@ -151,7 +145,25 @@ The following steps must be done **after** the **first** run of the demo with th
 
     ![Create Jenkins WebHook](images/gitlab-webhook.png)
 
-Once the above steps are done the applications should be integrated together for the demo.
+7. Run the Seed Job
+
+    This will generate the **pipeline** job(s) which can then be ran for demo purposes.
+
+    ![Run Seed Job](images/seed.png)
+
+From now on you can take the stack up and down with docker-compose commands.
+
+* `docker-compose up -d` to bring it up.
+* `docker-compose down` to bring it down.
+
+## Good To Know
+
+* http://traefik.local.net : Proxies all the applications. The Dashboard is not secured. 
+* http://jenkins.local.net : Jenkins CI server. User is `jenkins` and password is `password`.
+* http://gitlab.local.net : VCS repo manager. User is `root` and password is `passsword`.
+* http://sonarqube.local.net : Static analysis tool. A Jenkins user is also created with the same credentials as for Jenkins itself, i.e. user is `jenkins` and password is `password`. The default user `admin` is also available with password `admin`.
+* If you need to start fresh just bring the stack down with `docker-compose down -v`. This will **destroy** the docker volumes. You will need to do the **Initial Setup** again.
+
 
 
 

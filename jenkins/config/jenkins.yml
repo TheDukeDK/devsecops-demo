@@ -109,23 +109,6 @@ jenkins:
   
   disableRememberMe: false
 
-credentials:
-  system:
-    domainCredentials:
-      - credentials:
-        - usernamePassword:
-            scope: GLOBAL
-            id: "root-gitlab"
-            username: "root"
-            password: "${GITLAB_ROOT_PASSWORD}"
-            description: "Username/Password Credentials for GitLab root. Used for cloning."
-        - usernamePassword:
-            scope: GLOBAL
-            id: "jenkins-sonarqube"
-            username: "jenkins"
-            password: "${JENKINS_ADMIN_PASSWORD}"
-            description: "Username/Password Credentials for SonarQube jenkins user."
-
 tool:
   git:
     installations:
@@ -172,15 +155,13 @@ unclassified:
     installations:
       - name: "sonarqube.local.net"
         serverUrl: "http://sonarqube.local.net"
-        credentialsId: "token-sonarqube"
         triggers:
           skipScmCause: true
           skipUpstreamCause: true
   
   gitLabConnectionConfig:
     connections:
-    - apiTokenId: "token-gitlab"
-      clientBuilderId: "autodetect"
+    - clientBuilderId: "autodetect"
       connectionTimeout: 10
       ignoreCertificateErrors: true
       name: "Local GitLab"
