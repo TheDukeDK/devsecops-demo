@@ -90,7 +90,7 @@ Unfortunately we cannot fully bootstrap the tools so they integrate together. In
 
 The following steps must be done **in this order** after the **first** run of the demo with the `bootstrap.sh` script. Remember to take a copy of all the tokens you create.
 
-1. Create Username and Password credentila for cloning
+1. Create Username and Password credential for cloning.
 
     In Jenkins create a credential of type `Username with Password` with the name `root-gitlab`. Note that it **must be** named `root-gitlab`.
 
