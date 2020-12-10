@@ -155,13 +155,15 @@ unclassified:
     installations:
       - name: "sonarqube.local.net"
         serverUrl: "http://sonarqube.local.net"
+        credentialsId: "token-sonarqube"
         triggers:
           skipScmCause: true
           skipUpstreamCause: true
   
   gitLabConnectionConfig:
     connections:
-    - clientBuilderId: "autodetect"
+    - apiTokenId: "token-gitlab"
+      clientBuilderId: "autodetect"
       connectionTimeout: 10
       ignoreCertificateErrors: true
       name: "Local GitLab"
