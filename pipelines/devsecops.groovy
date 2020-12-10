@@ -82,7 +82,7 @@ pipeline {
                             sh 'checkov -l'
                             sh 'checkov -s -d k8s -o'
                             sh 'echo "Run it and produce a Junit report."'
-                            sh 'checkov -s -d k8s -o junitxml 2>&1 | tee output.log'
+                            sh 'checkov -s -d k8s -o junitxml 2>&1 | tee checkov.xml'
                         }
                     }
                 }
@@ -103,7 +103,7 @@ pipeline {
             sh "echo Do something on success!"
         }
         always {
-            sh "echo Do something on success!"
+            junit "${WORKSPACE}/sample_projects/eShopOnContainers/checkov.xml"
         }
     }
 }
