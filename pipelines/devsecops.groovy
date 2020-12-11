@@ -40,7 +40,7 @@ pipeline {
                 }
             }
         }
-        stage('Evaluate Static Analysis'){
+        stage('Static Analysis QG'){
             steps {
                 dir("sample_projects/eShopOnWeb"){
                     withSonarQubeEnv('sonarqube.local.net') {sh "dotnet-sonarscanner end"}
@@ -60,9 +60,10 @@ pipeline {
                     steps {
                         dir("sample_projects/eShopOnWeb"){
                             sh 'echo "If you run trivy with --exit-code=1 it will FAIL the build."'
-                            sh 'trivy image eshopwebmvc'
+                            sh 'trivy image eshopwebmvc --format template --template "@contrib/junit.tpl" -o trivy-report.xml'
                             sh 'echo "scanning with Trivy docker image."'
                             sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/.cache:/root/.cache/ aquasec/trivy eshopwebmvc'
+                            junit "checkov.xml"
                         }
                     }
                 }

@@ -16,14 +16,14 @@ The repository includes some open source license code to use for the demo and ev
 
 Below is a list of todo's that need to be done before it is considered complete enough to be of use.
 
-* This repo needs to be tested on MAC and Windows.
-* Need to evaluate what more needs to go into the `bootstrap.sh` script. The purpose of this script is to bootstrap through the different tools API's what cannot be done statically in the containers.
 * Maybe re-arrange the pipelines to be more intuitive? E.g. multiple pipelines by tool that is in focus or split them by sample application and name stages by tool?
 * Add terrascan to the pipeline and some terraform scripts.
+* Add OWASP dependency check to pipeline.
+* Add tflint to pipeline.
 * Have checkov also scan the terraform scripts.
-* Add example of running checkov as a container.
-* Add hadolint to the pipeline?
+* Add hadolint to the pipeline.
 * Add a Java web app to piepline(s).
+* Write some markdown about pro's and con's of each tool.
 
 
 ## Pre-requisites
