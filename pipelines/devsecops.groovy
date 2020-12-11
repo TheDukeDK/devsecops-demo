@@ -105,9 +105,9 @@ pipeline {
         }
         always {
             sh 'echo "We are going to do some cleanup here..."'
-            //sh 'docker rmi $(docker images -a | awk '/^<none>/ {print $3}')'
             sh "docker rmi eshopwebmvc"
             sh "docker rmi eshoppublicapi"
+            sh """docker rmi -f \$(docker images | awk '/^<none>/ {print \$3}') || true"""
             sh 'git clean -fdx'
         }
     }
