@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 GITLAB_ROOT_PASSWORD=${GITLAB_ROOT_PASSWORD:=password}
 JENKINS_ADMIN_USER=${JENKINS_ADMIN_USER:=jenkins}
