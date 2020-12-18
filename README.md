@@ -22,7 +22,7 @@ Below is a list of todo's that need to be done before it is considered complete 
 * Add tflint to pipeline.
 * Have checkov also scan the terraform scripts.
 * Add hadolint to the pipeline.
-* Add a Java web app to piepline(s).
+* Add a Java web app to pipeline(s).
 * Write some markdown about pro's and con's of each tool.
 
 
