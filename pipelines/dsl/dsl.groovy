@@ -22,7 +22,7 @@ pipelineJob("devsecops-demo") {
                         url('http://gitlab.local.net/root/devsecops-demo.git')
                         credentials('root-gitlab')
                     }
-                    branches('*/master')
+                    branches('*/*')
                 }
             }
             scriptPath("pipelines/devsecops.groovy")
@@ -54,7 +54,7 @@ pipelineJob("devsecops-MR-demo") {
                         url('http://gitlab.local.net/root/devsecops-demo.git')
                         credentials('root-gitlab')
                     }
-                    branches('*/master')
+                    branches('*/*')
                 }
             }
             scriptPath("pipelines/pr.groovy")
