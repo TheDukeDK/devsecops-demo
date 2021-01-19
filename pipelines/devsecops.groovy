@@ -63,7 +63,6 @@ pipeline {
                             sh 'trivy image eshopwebmvc'
                             sh 'echo "scanning with Trivy docker image."'
                             sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/.cache:/root/.cache/ aquasec/trivy eshopwebmvc'
-                            junit "checkov.xml"
                         }
                     }
                 }
