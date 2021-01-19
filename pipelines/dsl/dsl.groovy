@@ -30,6 +30,38 @@ pipelineJob("devsecops-demo") {
     }
 }
 
+pipelineJob("devsecops-MR-demo") {
+
+    description("This job demonstrates the SonarQube PR decoration.")
+
+    disabled(false)
+    keepDependencies(false)
+    triggers {
+        gitlabPush {
+            buildOnMergeRequestEvents(true)
+            enableCiSkip(false)
+            setBuildDescription(false)
+            rebuildOpenMergeRequest('source')
+        }
+    }
+
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        name('origin')
+                        url('http://gitlab.local.net/root/devsecops-demo.git')
+                        credentials('root-gitlab')
+                    }
+                    branches('*/master')
+                }
+            }
+            scriptPath("pipelines/pr.groovy")
+        }
+    }
+}
+
 listView("DevSecOps") {
     jobs {
         regex('(devsecops-).*')

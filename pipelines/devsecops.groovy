@@ -13,7 +13,7 @@ pipeline {
                     steps {
                         sh 'printenv'
                         dir("sample_projects/eShopOnWeb"){
-                            withSonarQubeEnv('sonarqube.local.net'){sh "dotnet-sonarscanner begin /d:sonar.pullrequest.branch=${GIT_BRANCH} /d:sonar.pullrequest.key=${gitlabMergeRequestId} /k:root_devsecops-demo_AXcajgPuJYkemuZ5HaAk"}
+                            withSonarQubeEnv('sonarqube.local.net'){sh "dotnet-sonarscanner begin /d:sonar.branch.name=${GIT_BRANCH} /k:root_devsecops-demo_AXcajgPuJYkemuZ5HaAk"}
                             sh 'dotnet build eShopOnWeb.sln'
                         }
                     }
@@ -31,13 +31,6 @@ pipeline {
             steps {
                 dir("sample_projects/eShopOnWeb"){
                     sh 'dotnet test tests/UnitTests/UnitTests.csproj /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=cobertura'
-                }
-            }
-        }
-        stage('Integration Tests'){
-            steps {
-                dir("sample_projects/eShopOnWeb"){
-                    sh 'dotnet test tests/IntegrationTests/IntegrationTests.csproj'
                 }
             }
         }
