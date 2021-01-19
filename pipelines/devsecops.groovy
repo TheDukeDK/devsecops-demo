@@ -13,7 +13,7 @@ pipeline {
                     steps {
                         sh 'printenv'
                         dir("sample_projects/eShopOnWeb"){
-                            withSonarQubeEnv('sonarqube.local.net'){sh "dotnet-sonarscanner begin /d:sonar.pullrequest.key=${gitlabMergeRequestId} /k:root_devsecops-demo_AXcajgPuJYkemuZ5HaAk"}
+                            withSonarQubeEnv('sonarqube.local.net'){sh "dotnet-sonarscanner begin /d:sonar.pullrequest.branch=${GIT_BRANCH} /d:sonar.pullrequest.key=${gitlabMergeRequestId} /k:root_devsecops-demo_AXcajgPuJYkemuZ5HaAk"}
                             sh 'dotnet build eShopOnWeb.sln'
                         }
                     }
