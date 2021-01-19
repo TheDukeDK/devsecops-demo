@@ -11,6 +11,7 @@ pipeline {
             parallel {
                 stage('eShop Source'){ 
                     steps {
+                        sh 'printenv'
                         dir("sample_projects/eShopOnWeb"){
                             withSonarQubeEnv('sonarqube.local.net'){sh "dotnet-sonarscanner begin /d:sonar.branch.name=${GIT_BRANCH} /k:root_devsecops-demo_AXcajgPuJYkemuZ5HaAk"}
                             sh 'dotnet build eShopOnWeb.sln'
