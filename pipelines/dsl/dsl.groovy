@@ -32,9 +32,9 @@ pipelineJob("devsecops-demo") {
 
 pipelineJob("devsecops-libscan-demo") {
 
-    description("This job demons different open source lib scanning tools.")
+    description("This job demo's different open source lib scanning tools.")
 
-    disabled(true)
+    disabled(false)
     keepDependencies(false)
     triggers {
         gitlabPush {
