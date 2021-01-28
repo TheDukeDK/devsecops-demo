@@ -1,0 +1,2 @@
+
+I cast my vote for %{ if candidate == "Dan McCready" }Mark Harris%{ else }${candidate}%{ endif }
