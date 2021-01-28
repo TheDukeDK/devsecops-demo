@@ -26,21 +26,28 @@ pipeline {
         stage('Static Analysis QG'){
             steps {
                 dir("sample_projects/eShopOnWeb"){
-                    withSonarQubeEnv('sonarqube.local.net') {sh "dotnet-sonarscanner end"}
-                    //script {
-                    //    sh "echo 'This is a stupid sleep' && sleep 30" 
-                    //    timeout(time: 10, unit: 'MINUTES') {
-                    //        def qg = waitForQualityGate()
-                    //        if (qg.status != 'OK') {error "The SonarQube Quality Gate has failed with: ${qg.status}!..."}
-                    //    }
-                    //}
+                    withSonarQubeEnv('sonarqube.local.net') { 
+                        sh "dotnet-sonarscanner end"
+                    }
                 }
             }
         }
-        stage('Scan libs(NPM Audit)') {
-            steps {
-                dir("sample_projects/eShopOnContainers/src/Web/WebSPA"){
-                    sh "npm audit" 
+        stage('Library Scans') {
+            parallel {
+                stage('NPM Audit') 
+                {
+                    steps {
+                        dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
+                            sh "npm audit"
+                        }
+                    }
+                }
+                stage('OWASp Dependency') {
+                    steps {
+                        dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
+                            sh 'Add owasp dependency check here!'
+                        }
+                    }
                 }
             }
         }
