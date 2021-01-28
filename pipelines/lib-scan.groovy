@@ -36,26 +36,32 @@ pipeline {
                 }
             }
         }
+        stage('Publish') {
+            steps {
+                dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
+                sh 'ls -la ./tmp/npm'
+                recordIssues(
+                tool: groovyScript(parserId: 'npm-audit', pattern: '.tmp/npm/audit'),
+                    qualityGates: [
+                        [threshold: 100, type: 'TOTAL', unstable: true]
+                    ]
+                )
+            }
+            }
+        }
     }
     post {
         success {
             sh "echo Do something on success!"
         }
         unstable {
-            sh "echo Do something on success!"
+            sh "echo Do something on unstable!"
         }
         failure {
-            sh "echo Do something on success!"
+            sh "echo Do something on failure!"
         }
         always {
-            dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
-                recordIssues(
-                tool: groovyScript(parserId: 'npm-audit', pattern: 'sample_projects/eShopOnContainers/src/Web/WebSPA/.tmp/npm/audit'),
-                    //qualityGates: [
-                    //    [threshold: 100, type: 'TOTAL', unstable: true]
-                    //]
-                )
-            }
+            sh "echo Do something on always!"
         }
     }
 }
