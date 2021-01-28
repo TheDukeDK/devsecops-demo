@@ -20,8 +20,8 @@ pipeline {
                 stage('OWASP Dependency') {
                     steps {
                         dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
-                            sh 'dependency-check.sh --project "eShopOnContainers" --scan ./ -f ALL'
-                            dependencyCheckPublisher pattern: 'dependency-check-report.html', 
+                            sh 'dependency-check.sh --project "eShopOnContainers" --scan ./ -f JSON'
+                            dependencyCheckPublisher pattern: 'dependency-check-report.json', 
                                 failedNewCritical: 1,
                                 failedNewHigh: 1,
                                 failedTotalCritical: 3,
