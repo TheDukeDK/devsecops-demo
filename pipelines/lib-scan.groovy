@@ -63,12 +63,12 @@ pipeline {
         }
         always {
             sh 'git clean -fdx'
-            recordIssues(
-             tool: groovyScript(parserId: 'npm-audit', pattern: '.tmp/npm/audit'),
-                qualityGates: [
-                    [threshold: 100, type: 'TOTAL', unstable: true]
-                ]
-            )
+            //recordIssues(
+            // tool: groovyScript(parserId: 'npm-audit', pattern: '.tmp/npm/audit'),
+            //    qualityGates: [
+            //        [threshold: 100, type: 'TOTAL', unstable: true]
+            //    ]
+            //)
         }
     }
 }
