@@ -40,7 +40,7 @@ pipeline {
             steps {
                 dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
                 sh 'ls -la results/npm-audit'
-                cat 'results/npm-audit/result.log'
+                sh 'cat results/npm-audit/result.log'
                 recordIssues(
                 tool: groovyScript(parserId: 'npm-audit', pattern: 'results/npm-auditresult.log'),
                     qualityGates: [
