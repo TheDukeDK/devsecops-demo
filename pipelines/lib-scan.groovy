@@ -28,14 +28,10 @@ pipeline {
                         //    }
                         //}
                         dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
+                            sh 'npm audit --parseable'
                             sh 'mkdir -p .tmp/npm'
                             sh 'npm audit --parseable > .tmp/npm/audit || true'
-                            recordIssues(
-                             tool: groovyScript(parserId: 'npm-audit', pattern: '.tmp/npm/audit'),
-                                qualityGates: [
-                                    [threshold: 100, type: 'TOTAL', unstable: true]
-                                ]
-                            )
+                            
                         }
                     }
                 }
