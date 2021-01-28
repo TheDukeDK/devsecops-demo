@@ -12,8 +12,24 @@ pipeline {
                 stage('NPM Audit') 
                 {
                     steps {
+                        script {
+                            // set up the parser
+                            def config = io.jenkins.plugins.analysis.warnings.groovy.ParserConfiguration.getInstance()
+
+                            if(!config.contains('npm-audit')){
+                                def newParser = new io.jenkins.plugins.analysis.warnings.groovy.GroovyParser(
+                                    'npm-audit',
+                                    'NPM Audit Parser',
+                                    '\w+\t(\S+)\t(\w+)\t(\S| )+\t((\S| )+)\t(\S+)\t(\S+)',
+                                    'return builder.setFileName(matcher.group(7)).setCategory(matcher.group(4)).setMessage(matcher.group(6)).buildOptional()',
+                                    "update\tlodash\tlow\tnpm update lodash --depth 9\tPrototype Pollution\thttps://npmjs.com/advisories/1523\telasticsearch>lodash\tN"
+                                )
+                                config.setParsers(config.getParsers().plus(newParser))
+                            }
+                        }
                         dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
-                            sh "npm audit"
+                            sh 'mkdir -p .tmp/npm'
+                            sh 'npm audit --parseable > .tmp/npm/audit || true'
                         }
                     }
                 }
@@ -47,6 +63,12 @@ pipeline {
         }
         always {
             sh 'git clean -fdx'
+            recordIssues(
+             tool: groovyScript(parserId: 'npm-audit', pattern: '.tmp/npm/audit'),
+                qualityGates: [
+                    [threshold: 100, type: 'TOTAL', unstable: true]
+                ]
+            )
         }
     }
 }
