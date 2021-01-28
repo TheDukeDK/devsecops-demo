@@ -13,8 +13,8 @@ pipeline {
                 {
                     steps {
                         dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
-                            sh 'mkdir -p .tmp/npm'
-                            sh 'npm audit --parseable > .tmp/npm/audit || true'
+                            sh 'mkdir -p results/npm-audit'
+                            sh 'npm audit --parseable > results/npm-audit/result.log || true'
                             
                         }
                     }
@@ -39,9 +39,9 @@ pipeline {
         stage('Publish') {
             steps {
                 dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
-                sh 'ls -la ./tmp/npm'
+                sh 'ls -la results/npm-audit'
                 recordIssues(
-                tool: groovyScript(parserId: 'npm-audit', pattern: '.tmp/npm/audit'),
+                tool: groovyScript(parserId: 'npm-audit', pattern: '**/results/npm-audit/*result.log'),
                     qualityGates: [
                         [threshold: 100, type: 'TOTAL', unstable: true]
                     ]
