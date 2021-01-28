@@ -44,8 +44,9 @@ pipeline {
                 }
                 stage('OWASp Dependency') {
                     steps {
-                        dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
-                            sh "echo Add owasp dependency check here!"
+                        dir("sample_projects/eShopOnContainers") {
+                            sh 'dependency-check.sh --project "eShopOnWeb" --scan sample_projects/eShopOnContainers/ -f XML'
+                            dependencyCheckPublisher pattern: 'dependency-check-report.xml'
                         }
                     }
                 }

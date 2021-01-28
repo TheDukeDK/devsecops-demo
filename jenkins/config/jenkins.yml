@@ -114,7 +114,7 @@ tool:
     installations:
     - home: "/usr/bin/git"
       name: "Default"
-  
+
   jdk:
     installations:
     - home: "/usr/local/openjdk-8"
@@ -146,6 +146,12 @@ tool:
           installers:
           - sonarRunnerInstaller:
               id: "4.5.0.2216"
+
+  dependency-check:
+    installations:
+    - home: "/usr/local/bin/dependency-check"
+      name: "dependency-check"
+  
 
 unclassified:
   location:

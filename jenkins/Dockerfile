@@ -21,7 +21,7 @@ RUN wget -q -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearm
 RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
 RUN apt-get -qq update && apt-get install -y nano gradle maven ant nuget nodejs \
     build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev \
-    libreadline-dev libffi-dev apt-transport-https dotnet-sdk-3.1 gnupg lsb-release
+    libreadline-dev libffi-dev apt-transport-https dotnet-sdk-3.1 gnupg lsb-release ruby mono-runtime
 
 # Install the sonarqube scanner
 RUN dotnet tool install --global dotnet-sonarscanner --version 5.0.4
@@ -30,7 +30,7 @@ RUN chmod -R 777 /usr/local/bin/tools
 
 # Install Docker and Compose. Used to build docker images.
 # Note that it is expected that the docker.sock is mounted into this container.
-RUN apt-get update -qq && apt-get install -y apt-transport-https ca-certificates gnupg-agent software-properties-common
+RUN apt-get update -qq && apt-get install -y apt-transport-https ca-certificates gnupg-agent software-properties-common 
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 RUN apt-key fingerprint 0EBFCD88
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
@@ -53,6 +53,13 @@ RUN curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz \
 RUN pip3 install --upgrade pip && pip3 install --upgrade setuptools
 RUN pip install checkov
 
+# Install OWASP Dependency Check
+RUN gem install bundle-audit && gem cleanup
+RUN wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.0/dependency-check-6.1.0-release.zip \
+    && unzip dependency-check-6.1.0-release.zip -d /usr/local/bin \
+    && ls -ll /usr/local/bin
+
+
 # Skip setup wizard for Jenkins
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 
@@ -66,3 +73,4 @@ RUN chown jenkins:jenkins /jenkins.yml \
     && chmod 750 /jenkins.yml
 
 ENV PATH="${PATH}:/usr/local/bin/tools"
+ENV PATH="${PATH}:/usr/local/bin/dependency-check/bin"
