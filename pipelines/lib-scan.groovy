@@ -51,7 +51,6 @@ pipeline {
                                 failedNewHigh: 1, 
                                 failedTotalCritical: 2, 
                                 failedTotalHigh: 28, 
-                                pattern: '', 
                                 unstableTotalCritical: 1, 
                                 unstableTotalHigh: 10, 
                                 unstableTotalMedium: 24
