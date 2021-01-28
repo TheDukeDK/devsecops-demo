@@ -46,6 +46,7 @@ pipeline {
             sh "echo Do something on success!"
         }
         always {
+            sh "echo temp"
             //sh 'git clean -fdx'
         }
     }
