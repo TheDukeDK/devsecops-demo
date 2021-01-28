@@ -30,6 +30,38 @@ pipelineJob("devsecops-demo") {
     }
 }
 
+pipelineJob("devsecops-libscan-demo") {
+
+    description("This job demons different open source lib scanning tools.")
+
+    disabled(true)
+    keepDependencies(false)
+    triggers {
+        gitlabPush {
+            buildOnMergeRequestEvents(false)
+            enableCiSkip(false)
+            setBuildDescription(false)
+            rebuildOpenMergeRequest('never')
+        }
+    }
+
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        name('origin')
+                        url('http://gitlab.local.net/root/devsecops-demo.git')
+                        credentials('root-gitlab')
+                    }
+                    branches('*/*')
+                }
+            }
+            scriptPath("pipelines/lib-scan.groovy")
+        }
+    }
+}
+
 pipelineJob("devsecops-MR-demo") {
 
     description("This job demonstrates the SonarQube MR decoration Gitlab. ONLY WORKS with developer edition and thus disabled!")
