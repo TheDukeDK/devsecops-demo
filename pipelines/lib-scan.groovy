@@ -39,15 +39,15 @@ pipeline {
         stage('Publish') {
             steps {
                 dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
-                sh 'ls -la results/npm-audit'
-                sh 'cat results/npm-audit/result.log'
-                recordIssues(
-                tool: groovyScript(parserId: 'npm-audit', pattern: 'results/npm-auditresult.log'),
-                    qualityGates: [
-                        [threshold: 100, type: 'TOTAL', unstable: true]
-                    ]
-                )
-            }
+                    sh 'ls -la results/npm-audit'
+                    sh 'cat results/npm-audit/result.log'
+                    recordIssues(
+                    tool: groovyScript(parserId: 'npm-audit', pattern: 'results/npm-audit/result.log'),
+                        qualityGates: [
+                            [threshold: 100, type: 'TOTAL', unstable: true]
+                        ]
+                    )
+                }
             }
         }
     }
