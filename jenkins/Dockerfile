@@ -19,7 +19,7 @@ RUN wget -q -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearm
 
 # Install needed dependencies and build tools
 RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
-RUN apt-get -qq update && apt-get install -y nano gradle maven ant nuget nodejs \
+RUN apt-get -qq update && apt-get install -y nano gradle maven ant \
     build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev \
     libreadline-dev libffi-dev apt-transport-https dotnet-sdk-3.1 gnupg lsb-release ruby mono-runtime
 
@@ -59,9 +59,9 @@ RUN wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.0/
     && unzip dependency-check-6.1.0-release.zip -d /usr/local/bin \
     && ls -ll /usr/local/bin
 
-# Intsall NVM to control node version
-RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-
+# We NEED a version that still supports npm audit with --parseable option. Uhg..
+RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+RUN apt-get install -y nodejs nuget
 
 # Skip setup wizard for Jenkins
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"

@@ -28,7 +28,6 @@ pipeline {
                         //    }
                         //}
                         dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
-                            sh 'npm audit --parseable'
                             sh 'mkdir -p .tmp/npm'
                             sh 'npm audit --parseable > .tmp/npm/audit || true'
                             
