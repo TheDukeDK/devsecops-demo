@@ -34,7 +34,7 @@ pipelineJob("devsecops-MR-demo") {
 
     description("This job demonstrates the SonarQube PR decoration.")
 
-    disabled(false)
+    disabled(true)
     keepDependencies(false)
     triggers {
         gitlabPush {

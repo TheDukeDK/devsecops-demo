@@ -21,7 +21,7 @@ RUN wget -q -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearm
 RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
 RUN apt-get -qq update && apt-get install -y nano gradle maven ant nuget nodejs \
     build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev \
-    libreadline-dev libffi-dev apt-transport-https dotnet-sdk-3.1 dotnet-sdk-5.0 gnupg lsb-release
+    libreadline-dev libffi-dev apt-transport-https dotnet-sdk-3.1 gnupg lsb-release
 
 # Install the sonarqube scanner
 RUN dotnet tool install --global dotnet-sonarscanner --version 5.0.4

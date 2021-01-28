@@ -13,7 +13,8 @@ pipeline {
                     steps {
                         sh 'printenv'
                         dir("sample_projects/eShopOnWeb"){
-                            withSonarQubeEnv('sonarqube.local.net'){sh "dotnet-sonarscanner begin /d:sonar.branch.name=${GIT_BRANCH} /k:root_devsecops-demo_AXcajgPuJYkemuZ5HaAk"}
+                            // If you are using the Developer edition of SonarQube add the branch name -> /d:sonar.branch.name=${GIT_BRANCH}.
+                            withSonarQubeEnv('sonarqube.local.net'){sh "dotnet-sonarscanner begin /k:devsecops-demo"}
                             sh 'dotnet build eShopOnWeb.sln'
                         }
                     }
