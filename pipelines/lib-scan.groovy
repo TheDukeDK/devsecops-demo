@@ -21,7 +21,7 @@ pipeline {
                     steps {
                         dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
                             sh 'dependency-check.sh --project "eShopOnContainers" --scan ./ -f ALL'
-                            dependencyCheckPublisher pattern: 'dependency-check-report.xml', 
+                            dependencyCheckPublisher pattern: 'dependency-check-report.html', 
                                 failedNewCritical: 1,
                                 failedNewHigh: 1,
                                 failedTotalCritical: 3,
