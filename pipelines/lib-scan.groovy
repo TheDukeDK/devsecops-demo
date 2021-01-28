@@ -30,6 +30,12 @@ pipeline {
                         dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
                             sh 'mkdir -p .tmp/npm'
                             sh 'npm audit --parseable > .tmp/npm/audit || true'
+                            recordIssues(
+                             tool: groovyScript(parserId: 'npm-audit', pattern: '.tmp/npm/audit'),
+                                qualityGates: [
+                                    [threshold: 100, type: 'TOTAL', unstable: true]
+                                ]
+                            )
                         }
                     }
                 }
@@ -64,12 +70,6 @@ pipeline {
         always {
             sh 'echo temp'
             //sh 'git clean -fdx'
-            //recordIssues(
-            // tool: groovyScript(parserId: 'npm-audit', pattern: '.tmp/npm/audit'),
-            //    qualityGates: [
-            //        [threshold: 100, type: 'TOTAL', unstable: true]
-            //    ]
-            //)
         }
     }
 }
