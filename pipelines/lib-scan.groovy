@@ -45,14 +45,14 @@ pipeline {
                 stage('OWASP Dependency') {
                     steps {
                         dir("sample_projects/eShopOnContainers") {
-                            sh 'dependency-check.sh --project "eShopOnWeb" --scan ./ -f XML'
-                            dependencyCheckPublisher pattern: 'dependency-check-report.xml', 
+                            sh 'dependency-check.sh --project "eShopOnContainers" --scan ./ -f ALL'
+                            dependencyCheckPublisher pattern: '**/dependency-check-report.*', 
                                 failedNewCritical: 1,
-                                failedNewHigh: 1, 
+                                failedNewHigh: 1,
                                 failedTotalCritical: 2, 
-                                failedTotalHigh: 28, 
-                                unstableTotalCritical: 1, 
-                                unstableTotalHigh: 10, 
+                                failedTotalHigh: 28,
+                                unstableTotalCritical: 1,
+                                unstableTotalHigh: 10,
                                 unstableTotalMedium: 24
                         }
                     }
