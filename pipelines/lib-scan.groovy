@@ -45,7 +45,7 @@ pipeline {
                 stage('OWASp Dependency') {
                     steps {
                         dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
-                            sh 'Add owasp dependency check here!'
+                            sh "echo Add owasp dependency check here!"
                         }
                     }
                 }
