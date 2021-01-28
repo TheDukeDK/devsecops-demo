@@ -1,5 +1,0 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: cats-and-dogs
-  namespace: cats-and-dogs

@@ -1,8 +1,0 @@
-{
-  "mock": {
-    "tfrun": "mock-tfrun-fail-prod-0.12.sentinel"
-  },
-  "test": {
-    "main": false
-  }
-}
