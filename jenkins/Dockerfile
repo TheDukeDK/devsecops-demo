@@ -59,6 +59,9 @@ RUN wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.0/
     && unzip dependency-check-6.1.0-release.zip -d /usr/local/bin \
     && ls -ll /usr/local/bin
 
+# Intsall NVM to control node version
+RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+
 
 # Skip setup wizard for Jenkins
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"

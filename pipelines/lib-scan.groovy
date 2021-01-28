@@ -28,6 +28,8 @@ pipeline {
                             }
                         }
                         dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
+                            sh 'nvm install v10.23.2'
+                            sh 'nvm use v10.23.2'
                             sh 'mkdir -p .tmp/npm'
                             sh 'npm audit --parseable > .tmp/npm/audit || true'
                         }
