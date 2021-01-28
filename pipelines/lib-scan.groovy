@@ -42,10 +42,10 @@ pipeline {
                         }
                     }
                 }
-                stage('OWASp Dependency') {
+                stage('OWASP Dependency') {
                     steps {
                         dir("sample_projects/eShopOnContainers") {
-                            sh 'dependency-check.sh --project "eShopOnWeb" --scan sample_projects/eShopOnContainers/ -f XML'
+                            sh 'dependency-check.sh --project "eShopOnWeb" --scan ./ -f XML'
                             dependencyCheckPublisher pattern: 'dependency-check-report.xml'
                         }
                     }
