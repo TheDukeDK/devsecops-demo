@@ -32,7 +32,7 @@ pipelineJob("devsecops-demo") {
 
 pipelineJob("devsecops-MR-demo") {
 
-    description("This job demonstrates the SonarQube PR decoration.")
+    description("This job demonstrates the SonarQube MR decoration Gitlab. ONLY WORKS with developer edition and thus disabled!")
 
     disabled(true)
     keepDependencies(false)

@@ -1,3 +1,8 @@
+/*
+This pipeline was created to demo merge request decoration.
+It will NOT work unless you changed the SonarQube base image in its Docker file to developer version.
+*/
+
 pipeline {
     agent any 
     options {
