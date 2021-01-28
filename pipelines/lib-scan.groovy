@@ -24,8 +24,8 @@ pipeline {
                             dependencyCheckPublisher pattern: 'dependency-check-report.xml', 
                                 failedNewCritical: 1,
                                 failedNewHigh: 1,
-                                failedTotalCritical: 2, 
-                                failedTotalHigh: 28,
+                                failedTotalCritical: 3,
+                                failedTotalHigh: 29,
                                 unstableTotalCritical: 1,
                                 unstableTotalHigh: 10,
                                 unstableTotalMedium: 24
