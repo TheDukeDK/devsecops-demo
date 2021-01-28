@@ -68,8 +68,14 @@ pipeline {
             sh "echo Do something on success!"
         }
         always {
-            sh 'echo temp'
-            //sh 'git clean -fdx'
+            dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
+                recordIssues(
+                tool: groovyScript(parserId: 'npm-audit', pattern: '.tmp/npm/audit'),
+                    qualityGates: [
+                        [threshold: 100, type: 'TOTAL', unstable: true]
+                    ]
+                )
+            }
         }
     }
 }
