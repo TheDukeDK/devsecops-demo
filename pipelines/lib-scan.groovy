@@ -47,12 +47,14 @@ pipeline {
                         dir("sample_projects/eShopOnContainers") {
                             sh 'dependency-check.sh --project "eShopOnWeb" --scan ./ -f XML'
                             dependencyCheckPublisher pattern: 'dependency-check-report.xml', 
-                                unstableNewCritical: 0, 
-                                unstableNewHigh: 0, 
-                                unstableNewMedium: 0, 
-                                unstableTotalCritical: 2, 
-                                unstableTotalHigh: 27, 
-                                unstableTotalMedium: 23
+                                failedNewCritical: 1,
+                                failedNewHigh: 1, 
+                                failedTotalCritical: 2, 
+                                failedTotalHigh: 28, 
+                                pattern: '', 
+                                unstableTotalCritical: 1, 
+                                unstableTotalHigh: 10, 
+                                unstableTotalMedium: 24
                         }
                     }
                 }
