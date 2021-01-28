@@ -50,7 +50,7 @@ pipeline {
         always {
             dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
                 recordIssues(
-                tool: groovyScript(parserId: 'npm-audit', pattern: '.tmp/npm/audit'),
+                tool: groovyScript(parserId: 'npm-audit', pattern: 'sample_projects/eShopOnContainers/src/Web/WebSPA/.tmp/npm/audit'),
                     //qualityGates: [
                     //    [threshold: 100, type: 'TOTAL', unstable: true]
                     //]
