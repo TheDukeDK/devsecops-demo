@@ -62,7 +62,8 @@ pipeline {
             sh "echo Do something on success!"
         }
         always {
-            sh 'git clean -fdx'
+            sh 'echo temp'
+            //sh 'git clean -fdx'
             //recordIssues(
             // tool: groovyScript(parserId: 'npm-audit', pattern: '.tmp/npm/audit'),
             //    qualityGates: [
