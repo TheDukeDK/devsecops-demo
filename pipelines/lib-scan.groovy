@@ -14,7 +14,7 @@ pipeline {
                     steps {
                         dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
                             sh 'mkdir -p results/npm-audit'
-                            sh 'npm audit --parseable > results/npm-audit/result.log || true'
+                            sh 'npm audit --json > results/npm-audit/result.log || true'
                             
                         }
                     }
@@ -34,20 +34,12 @@ pipeline {
                         }
                     }
                 }
-            }
-        }
-        stage('Publish') {
-            steps {
-                dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
-                    sh 'ls -la results/npm-audit'
-                    sh 'cat results/npm-audit/result.log'
-                    recordIssues(
-                        enabledForFailure: true, aggregatingResults: true,
-                        tool: groovyScript(parserId: 'npm-audit', pattern: 'results/npm-audit/result.log',reportEncoding:'UTF-8'),
-                        qualityGates: [
-                            [threshold: 100, type: 'TOTAL', unstable: true]
-                        ]
-                    )
+                stage('Snyk') {
+                    steps {
+                        dir("sample_projects/eShopOnContainers/src/Web/WebSPA") {
+                            snykSecurity failOnIssues: false, projectName: 'eShopOnContainers', snykInstallation: 'snyk-tim', snykTokenId: 'token-snyk'
+                        }
+                    }
                 }
             }
         }
@@ -64,6 +56,14 @@ pipeline {
         }
         always {
             sh "echo Do something on always!"
+            // Can't get the NPM audit with groovy parser to work for a report and threshold.
+            //recordIssues(
+            //    enabledForFailure: false, aggregatingResults: true,
+            //    tool:groovyScript(parserId:'npm-audit',
+            //        pattern:'sample_projects/eShopOnContainers/src/Web/WebSPA/results/npm-audit/result.log',
+            //        reportEncoding:'UTF-8'),
+            //    qualityGates: [[threshold: 100, type: 'TOTAL', unstable: true]]
+            //)
         }
     }
 }
