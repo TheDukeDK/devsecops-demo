@@ -23,10 +23,17 @@ RUN apt-get -qq update && apt-get install -y nano gradle maven ant \
     build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev \
     libreadline-dev libffi-dev apt-transport-https dotnet-sdk-3.1 gnupg lsb-release ruby mono-runtime
 
-# Install the sonarqube scanner
+# Install the sonarqube scanners
 RUN dotnet tool install --global dotnet-sonarscanner --version 5.0.4
 RUN cp -r /root/.dotnet/tools /usr/local/bin
 RUN chmod -R 777 /usr/local/bin/tools
+
+RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.5.0.2216-linux.zip \
+    && unzip sonar-scanner-cli-4.5.0.2216-linux.zip -d /usr/local/bin \
+    && rm sonar-scanner-cli-4.5.0.2216-linux.zip
+
+ENV PATH="${PATH}:/usr/local/bin/sonar-scanner-4.5.0.2216-linux/bin"
+
 
 # Install Docker and Compose. Used to build docker images.
 # Note that it is expected that the docker.sock is mounted into this container.
@@ -62,7 +69,7 @@ RUN wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.0/
 # We NEED a version that still supports npm audit with --parseable option. Uhg..
 RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 RUN apt-get install -y nodejs nuget
-
+RUN npm install -g retire
 # Skip setup wizard for Jenkins
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 
