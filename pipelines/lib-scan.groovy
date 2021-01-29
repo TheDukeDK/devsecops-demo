@@ -31,11 +31,19 @@ pipeline {
                                 unstableTotalCritical: 1,
                                 unstableTotalHigh: 10,
                                 unstableTotalMedium: 24
-                            
-                            withSonarQubeEnv('sonarqube.local.net'){
+                        }
+                    }
+                }
+                stage('OWASP DC - SQ'){ 
+                    steps {
+                        sh 'printenv'
+                        dir("sample_projects/eShopOnWeb"){
+                            // If you are using the Developer edition of SonarQube add the branch name -> /d:sonar.branch.name=${GIT_BRANCH}.
+                            withSonarQubeEnv('sonarqube.local.net') {
                                 sh "dotnet-sonarscanner begin /d:sonar.dependencyCheck.xmlReportPath=dependency-check-report.xml /k:eShopOnContainers-DependencyCheck"
-                                sh "dotnet-sonarscanner end"
                             }
+                            sh 'dotnet build eShopOnWeb.sln'
+                            sh "dotnet-sonarscanner end"
                         }
                     }
                 }
