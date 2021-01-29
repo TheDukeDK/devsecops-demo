@@ -31,6 +31,11 @@ pipeline {
                                 unstableTotalCritical: 1,
                                 unstableTotalHigh: 10,
                                 unstableTotalMedium: 24
+                            
+                            withSonarQubeEnv('sonarqube.local.net'){
+                                sh "dotnet-sonarscanner begin /d:sonar.dependencyCheck.xmlReportPath=dependency-check-report.xml /k:eShopOnContainers-DependencyCheck"
+                                sh "dotnet-sonarscanner end"
+                            }
                         }
                     }
                 }
