@@ -34,7 +34,7 @@ pipeline {
                         }
                     }
                 }
-                stage('OWASP DC - SQ'){ 
+                stage('OWASP DC/SQ'){ 
                     steps {
                         sh 'printenv'
                         dir("sample_projects/eShopOnWeb"){
@@ -43,7 +43,7 @@ pipeline {
                                 sh "dotnet-sonarscanner begin /d:sonar.dependencyCheck.xmlReportPath=dependency-check-report.xml /k:eShopOnContainers-DependencyCheck"
                             }
                             sh 'dotnet build eShopOnWeb.sln'
-                            sh "dotnet-sonarscanner end"
+                            withSonarQubeEnv('sonarqube.local.net') {sh "dotnet-sonarscanner end"}
                         }
                     }
                 }
