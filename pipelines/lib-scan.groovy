@@ -42,7 +42,8 @@ pipeline {
                     sh 'ls -la results/npm-audit'
                     sh 'cat results/npm-audit/result.log'
                     recordIssues(
-                    tool: groovyScript(parserId: 'npm-audit', pattern: 'results/npm-audit/result.log'),
+                        enabledForFailure: true, aggregatingResults: true,
+                        tool: groovyScript(parserId: 'npm-audit', pattern: 'results/npm-audit/result.log',reportEncoding:'UTF-8'),
                         qualityGates: [
                             [threshold: 100, type: 'TOTAL', unstable: true]
                         ]
