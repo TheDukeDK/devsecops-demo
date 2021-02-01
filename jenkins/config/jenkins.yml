@@ -176,6 +176,27 @@ unclassified:
       readTimeout: 10
       url: "http://gitlab.local.net"
 
+  # Tried to set up a groovy parser to work with Next Gen Warnings plugin to threshold NPM Audit output.
+  # Followed this guide: https://uko.codes/npm-audit-jenkins-warnings-next-generation-custom-groovy-parser
+  # Doesn't work. Also the npm audit option --parseable seems to be deprecated in later versions of npm.
+  # Kept here for reference. But for this to be an option npm audit output needs to be in JSON format and
+  # a real parser would need to be added to the warnings plugin. 
+  # See: https://github.com/jenkinsci/analysis-model/tree/1d88989fb37156378b4b8e24620d580fc5a9415a/src/main/java/edu/hm/hafner/analysis/parser
+  warningsParsers:
+    parsers:
+      - name: "NPM Audit Parser"
+        id: npm-audit
+        regexp: '\w+\t(\S+)\t(\w+)\t(\S| )+\t((\S| )+)\t(\S+)\t(\S+)'
+        script: |
+          import edu.hm.hafner.analysis.Severity
+          builder.setFileName(matcher.group(7))
+          .setCategory(matcher.group(4))
+          .setMessage(matcher.group(6))
+          .buildOptional()
+          return builder.buildOptional();
+        example: "update\tlodash\tlow\tnpm update lodash --depth 9\tPrototype Pollution\t\
+                  https://npmjs.com/advisories/1523\telasticsearch>lodash\tN"
+
 security:
   queueItemAuthenticator:
     authenticators:
