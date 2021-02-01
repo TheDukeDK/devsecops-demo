@@ -17,6 +17,7 @@ The repository includes some open source license code to use for the demo and ev
 Below is a list of todo's that need to be done before it is considered complete enough to be of use.
 
 * Maybe re-arrange the pipelines to be more intuitive? E.g. multiple pipelines by tool that is in focus or split them by sample application and name stages by tool?
+* Add clair scanner to pipelines.
 * Add terrascan to the pipeline and some terraform scripts.
 * Add OWASP dependency check to pipeline.
 * Add tflint to pipeline.
