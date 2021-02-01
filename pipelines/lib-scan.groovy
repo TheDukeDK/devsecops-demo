@@ -33,7 +33,7 @@ pipeline {
                                 unstableTotalMedium: 24
                         }
                         withSonarQubeEnv('sonarqube.local.net') {
-                                sh "sonar-scanner /d:sonar.dependencyCheck.xmlReportPath=dependency-check-report.xml /d:sonar.projectKey=eShopOnContainers-DC"
+                                sh "sonar-scanner -Dsonar.dependencyCheck.xmlReportPath=dependency-check-report.xml -Dsonar.projectKey=eShopOnContainers-DC"
                             }
                     }
                 }
