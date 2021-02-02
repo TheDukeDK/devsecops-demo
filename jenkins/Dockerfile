@@ -72,6 +72,7 @@ RUN apt-get install -y nodejs nuget
 RUN npm install -g npm-audit-html
 RUN npm install -g yarn
 RUN npm install -g yarn-audit-html
+RUN npm install -g snyk
 
 # Skip setup wizard for Jenkins
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
