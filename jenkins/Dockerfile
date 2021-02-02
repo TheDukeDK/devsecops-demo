@@ -66,10 +66,13 @@ RUN wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.0/
     && unzip dependency-check-6.1.0-release.zip -d /usr/local/bin \
     && ls -ll /usr/local/bin
 
-# We NEED a version that still supports npm audit with --parseable option. Uhg..
+# Nodejs, nuget and yarn
 RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 RUN apt-get install -y nodejs nuget
-RUN npm install -g retire
+RUN npm install -g npm-audit-html
+RUN npm install -g yarn
+RUN npm install -g yarn-audit-html
+
 # Skip setup wizard for Jenkins
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 
