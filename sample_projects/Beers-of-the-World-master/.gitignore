@@ -10,3 +10,8 @@ beeroftheworld/target/**/*
 
 # eclipse workspace folder
 .metadata/**/*
+
+# Some VSCode files I assume.
+*.project
+*.classpath
+org.eclipse.jdt.*
