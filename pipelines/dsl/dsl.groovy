@@ -2,7 +2,7 @@ pipelineJob("devsecops-demo") {
 
     description("This job demonstrates different devsecops tools.")
 
-    disabled(false)
+    disabled(true)
     keepDependencies(false)
     triggers {
         gitlabPush {
@@ -22,7 +22,7 @@ pipelineJob("devsecops-demo") {
                         url('http://gitlab.local.net/root/devsecops-demo.git')
                         credentials('root-gitlab')
                     }
-                    branches('*/*')
+                    branches('*/master')
                 }
             }
             scriptPath("pipelines/devsecops.groovy")
@@ -30,9 +30,9 @@ pipelineJob("devsecops-demo") {
     }
 }
 
-pipelineJob("devsecops-libscan-demo") {
+pipelineJob("devsecops-node-libscan") {
 
-    description("This job demo's different open source lib scanning tools.")
+    description("This job demo's different open source lib scanning tools for NodeJs node-example-app.")
 
     disabled(false)
     keepDependencies(false)
@@ -54,17 +54,49 @@ pipelineJob("devsecops-libscan-demo") {
                         url('http://gitlab.local.net/root/devsecops-demo.git')
                         credentials('root-gitlab')
                     }
-                    branches('*/*')
+                    branches('*/master')
                 }
             }
-            scriptPath("pipelines/lib-scan.groovy")
+            scriptPath("pipelines/node-libscan.groovy")
+        }
+    }
+}
+
+pipelineJob("devsecops-dotnet-libscan") {
+
+    description("This job demo's different open source lib scanning tools for the eShopOnWeb DotNet Core application.")
+
+    disabled(false)
+    keepDependencies(false)
+    triggers {
+        gitlabPush {
+            buildOnMergeRequestEvents(false)
+            enableCiSkip(false)
+            setBuildDescription(false)
+            rebuildOpenMergeRequest('never')
+        }
+    }
+
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        name('origin')
+                        url('http://gitlab.local.net/root/devsecops-demo.git')
+                        credentials('root-gitlab')
+                    }
+                    branches('*/master')
+                }
+            }
+            scriptPath("pipelines/dotnet-libscan.groovy")
         }
     }
 }
 
 pipelineJob("devsecops-MR-demo") {
 
-    description("This job demonstrates the SonarQube MR decoration Gitlab. ONLY WORKS with developer edition and thus disabled!")
+    description("This job demonstrates the SonarQube MR decoration Gitlab. ONLY WORKS with GitLab developer edition and thus disabled!")
 
     disabled(true)
     keepDependencies(false)

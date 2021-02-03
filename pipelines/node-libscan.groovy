@@ -7,17 +7,17 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     stages {
-        stage('SQ(Node)')
-        {
+        stage('SonarQube') {
             steps {
                 dir("sample_projects/node-example-app") {
                     withSonarQubeEnv('sonarqube.local.net') {
+                        // WithNodeJs you can use the standard sonar-scanner cli
                         sh "sonar-scanner -Dsonar.projectKey=node-example-app -Dsonar.sources=."
                     }
                 }
             }
         }
-        stage('LibScans(Node)') {
+        stage('Scan Dependencies') {
             parallel {
                 stage('NPM Audit')
                 {
@@ -41,11 +41,11 @@ pipeline {
                         }
                     }
                 }
-                stage('OWASP-DC') {
+                stage('OWASP') {
                     steps {
                         dir("sample_projects/node-example-app") {
-                            sh 'dependency-check.sh --project "node-example-app" --scan ./ -f ALL'
-                            dependencyCheckPublisher pattern: 'dependency-check-report.xml', 
+                            sh 'dependency-check.sh --project "node-example-app" --scan ./ -f XML --out dependency-check-nodejs.xml'
+                            dependencyCheckPublisher pattern: 'dependency-check-nodejs.xml', 
                                 failedNewCritical: 1,
                                 failedNewHigh: 1,
                                 failedTotalCritical: 23,
@@ -87,7 +87,7 @@ pipeline {
             reportTitles: 'NPM Audit, Yarn Audit'])
 
             // Archive some reports
-            archiveArtifacts artifacts: 'sample_projects/node-example-app/dependency-check-*, sample_projects/node-example-app/*-audit.html',
+            archiveArtifacts artifacts: 'sample_projects/node-example-app/*-audit.html',
                 followSymlinks: false
             
             // Clean up non committed files.
