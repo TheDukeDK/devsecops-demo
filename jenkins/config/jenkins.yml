@@ -12,7 +12,7 @@ jenkins:
       name: "all"
   
   mode: NORMAL
-  numExecutors: 2
+  numExecutors: 1
   quietPeriod: 5
   scmCheckoutRetryCount: 1
 
@@ -136,7 +136,19 @@ tool:
               id: "5.0.4.24009-netcore"
           - msBuildSonarQubeRunnerInstaller:
               id: "5.0.4.24009"
-  
+
+  # Can't get JCasC to handle snyk :-(
+  #snyk:
+  #  installations:
+  #  - home: ""
+  #  - name: "snyk"
+  #    properties:
+  #    - installSource:
+  #        installers:
+  #        - snykInstaller:
+  #            #updatePolicyIntervalHours: 24
+  #            #version: "latest"
+
   sonarRunnerInstallation:
     installations:
     - name: "sonar-scanner-4.5.0"

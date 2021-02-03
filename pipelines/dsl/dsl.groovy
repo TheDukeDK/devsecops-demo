@@ -96,6 +96,38 @@ pipelineJob("devsecops-dotnet-libscan") {
     }
 }
 
+pipelineJob("devsecops-imagescan") {
+
+    description("This job demo's different open source container image scanning tools for the eShopOnWeb DotNet Core application.")
+
+    disabled(false)
+    keepDependencies(false)
+    triggers {
+        gitlabPush {
+            buildOnMergeRequestEvents(false)
+            enableCiSkip(false)
+            setBuildDescription(false)
+            rebuildOpenMergeRequest('never')
+        }
+    }
+
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        name('origin')
+                        url('http://gitlab.local.net/root/devsecops-demo.git')
+                        credentials('root-gitlab')
+                    }
+                    branches('*/master')
+                }
+            }
+            scriptPath("pipelines/container-scan.groovy")
+        }
+    }
+}
+
 pipelineJob("devsecops-MR-demo") {
 
     description("This job demonstrates the SonarQube MR decoration Gitlab. ONLY WORKS with GitLab developer edition and thus disabled!")

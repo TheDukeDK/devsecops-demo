@@ -18,7 +18,6 @@ RUN wget -q -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearm
     && chown root:root /etc/apt/sources.list.d/microsoft-prod.list
 
 # Install needed dependencies and build tools
-RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
 RUN apt-get -qq update && apt-get install -y nano gradle maven ant \
     build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev \
     libreadline-dev libffi-dev apt-transport-https dotnet-sdk-3.1 gnupg lsb-release ruby mono-runtime
@@ -46,6 +45,9 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-c
 RUN chmod +x /usr/local/bin/docker-compose
 RUN ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
+# Install Anchore's grype image scanner.
+RUN curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+
 # Install Trivy for scanning docker images
 RUN wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
 RUN echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
@@ -66,13 +68,12 @@ RUN wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.0/
     && unzip dependency-check-6.1.0-release.zip -d /usr/local/bin \
     && ls -ll /usr/local/bin
 
-# Nodejs, nuget and yarn
+# Nodejs, nuget
 RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 RUN apt-get install -y nodejs nuget
-RUN npm install -g npm-audit-html
-RUN npm install -g yarn
-RUN npm install -g yarn-audit-html
-RUN npm install -g snyk
+
+# Install snyk, yarn and some nuget packages for yarn and npm audit to make life easier
+RUN npm install -g npm-audit-html snyk yarn yarn-audit-html audit-ci
 
 # Skip setup wizard for Jenkins
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
