@@ -74,7 +74,7 @@ pipeline {
                             snykSecurity failOnIssues: false, snykInstallation: 'snyk', snykTokenId: 'token-snyk', targetFile: 'eShopOnWeb.sln'
 
                             // You can also execute snyk from the command line as below.
-                            sh 'snyk test --severity-threshold=high --fail-on=upgradable --file=eShopOnWeb.sln'
+                            // sh 'snyk test --severity-threshold=high --fail-on=upgradable --file=eShopOnWeb.sln'
                         }
                     }
                 }
