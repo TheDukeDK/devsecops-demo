@@ -80,6 +80,7 @@ pipeline {
             // Clean up non committed files.
             sh "git clean -fdx"
             sh "docker rmi eshopwebmvc"
+            sh """docker rmi -f \$(docker images | awk '/^<none>/ {print \$3}') || true"""
         }
     }
 }
