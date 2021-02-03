@@ -1,3 +1,5 @@
+#!groovy
+
 pipelineJob("devsecops-demo") {
 
     description("This job demonstrates different devsecops tools.")
