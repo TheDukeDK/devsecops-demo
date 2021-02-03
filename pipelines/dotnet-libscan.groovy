@@ -56,7 +56,7 @@ pipeline {
                     }
                 }
                 /*  
-                    Snyk can be used to check dependencies for .Net. 
+                    Snyk can be used to check dependencies for .Net. (https://support.snyk.io/hc/en-us/articles/360004519138-Snyk-for-NET)
                     There is a free plan with 200 tests per month limit. The free plan misses out on a lot of cool features but is a good way to get started.
                     NOTE: It is possible that it can start failing if heavily misused.  
                     
