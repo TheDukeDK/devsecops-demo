@@ -22,7 +22,7 @@ pipeline {
                     // If you are using the Developer edition of SonarQube add the branch name -> /d:sonar.branch.name=${GIT_BRANCH}.
                     withSonarQubeEnv('sonarqube.local.net') {
                         // With dotnet use the dotnet-sonarscanner in the below manner.
-                        sh "dotnet-sonarscanner begin /k:eShopOnWeb-DotNetCore"
+                        sh "dotnet-sonarscanner begin /k:eShopOnWeb"
                         sh 'dotnet build eShopOnWeb.sln'
                         sh "dotnet-sonarscanner end"
                     }
@@ -92,6 +92,10 @@ pipeline {
             sh "echo Do something on failure!"
         }
         always {
+            // Archive some reports
+            archiveArtifacts artifacts: '**/dependency-check-*.xml',
+                followSymlinks: false
+
             // Clean up non committed files.
             sh "git clean -fdx"
         }
