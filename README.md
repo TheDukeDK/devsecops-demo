@@ -14,11 +14,10 @@ The repository includes some open source license code to use for the demo and ev
 ## Todo's
 **This demo is not yet complete!** 
 
-Below is a list of todo's that need to be done before it is considered complete enough to be of use.
+Below is a list of todo's that need to be done.
 
-* Add snyk to setup markdown.
-* Add terrascan to the pipeline and some terraform scripts.
 * Add hadolint to the pipeline.
+* Add snyk to setup markdown.
 * Write some markdown about pro's and con's of each tool.
 
 
