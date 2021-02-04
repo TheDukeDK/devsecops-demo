@@ -48,6 +48,7 @@ See these two pipelines for demo implementations.
 * Third party packages can help. It is a bit of a jungle but I settled on these.
     * [audit-ci](https://www.npmjs.com/package/audit-ci): Maintained by IBM. Supports both NPM and Yarn. Provides the ability to set a threshhold for builds(low,moderate,high,critical).
     * [yarn-audit-html](https://www.npmjs.com/package/yarn-audit-html) and [npm-audit-html](https://www.npmjs.com/package/npm-audit-html): These modules can be used to produce an HTML report that can be published in Jenkins.
+* The results between Yarn and NPM audit are different.
 
 ### Snyk CLI
 * Snyk CLI could be a way to a more cohesive set of tools.

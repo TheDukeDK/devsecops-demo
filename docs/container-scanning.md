@@ -15,11 +15,15 @@ The tools in this demo have only been used against Docker format.
 * [Anchore Grype](https://github.com/anchore/grype)
 * [Trivy]()
 * [Snyk]()
+
+See he below pipeline for demo implementations.
+
+* [Image Scanning](../pipelines/container-scan.groovy)
 ## Observations
 ### Anchore Grype
-
+* 
 ### Trivy
-
+* 
 ### Snyk CLI
 * Snyk CLI could be a way to a more cohesive set of tools.
 * Provides a free tier but included mainly for completeness.
