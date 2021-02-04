@@ -136,7 +136,7 @@ The following steps marked **REQUIRED** must be done **in this order** after the
 
     ![Run Seed Job](images/seed.png)
 
-8. Create a Snyk Installation. (**REQUIRED**)
+8. Create a Snyk Installation and needed tokens. (**REQUIRED**)
 
     You need to create a **free** account on [Snyk](https://app.snyk.io/). See the [plans](https://snyk.io/plans/) for more info.
 
@@ -147,6 +147,10 @@ The following steps marked **REQUIRED** must be done **in this order** after the
     Create credential of type Snyk API Token. You can find your individual token under your profile ingeneral settings on [Snyk](https://app.snyk.io/)
 
     ![Snyk Token](images/snyk-token.png)
+
+    The Jenkins Snyk plugin does not seem to support Container scanning. So only option is the CLI. For this to work we need to create an environment variable with the token. Go to `Manage Jenkins -> Configuration System` to do this. Note that it **must** be SNYK_TOKEN.
+
+    ![Snyk Environment](images/snyk-env.png)
 
 
 From now on you can take the stack up and down with docker-compose commands.
