@@ -16,12 +16,9 @@ The repository includes some open source license code to use for the demo and ev
 
 Below is a list of todo's that need to be done before it is considered complete enough to be of use.
 
-* Maybe re-arrange the pipelines to be more intuitive? E.g. multiple pipelines by tool that is in focus or split them by sample application and name stages by tool?
+* Add snyk to setup markdown.
 * Add terrascan to the pipeline and some terraform scripts.
-* Add tflint to pipeline.
-* Have checkov also scan the terraform scripts.
 * Add hadolint to the pipeline.
-* Add a Java web app to pipeline(s).
 * Write some markdown about pro's and con's of each tool.
 
 
