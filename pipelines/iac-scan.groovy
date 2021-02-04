@@ -43,7 +43,7 @@ pipeline {
                     steps {
                         dir("sample_projects/eShopOnContainers") {
                             // sh 'echo "Snyk for IaC is disabled. CLI Not mature enough yet."'
-                            sh 'snyk iac test gke-cluster/ || true'
+                            sh 'snyk iac test k8s/ || true'
                         }
                     }
                 }
