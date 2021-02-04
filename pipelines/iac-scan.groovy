@@ -75,7 +75,7 @@ pipeline {
                     steps {
                         dir("sample_projects/terraform-google-gke") {
                             // sh 'echo "Snyk for IaC is disabled. CLI Not mature enough yet."'
-                            sh 'snyk iac test gke-cluster/'
+                            sh 'snyk iac test gke-cluster/ || true'
                         }
                     }
                 }
