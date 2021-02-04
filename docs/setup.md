@@ -4,13 +4,13 @@
 
 This repository implements a demo of DevSecOps tools against some sample code bases. The goal being to evaluate these tools against each other useing the same baseline and also provide examples of usage. 
 
-It, presently, contains the following tools to support the demo. 
+It, presently, contains the following applications to support the demo. 
 
 * Gitlab(13.5.3-ee)
 * Jenkins(2.249.3)
 * SonarQube(8.4.2 Community Edition)
 
-As much as possible, we have bootstrapped the tool stack to work together. But some **manual** configuration may be needed once the stack is running. Please see the Quick Start section for details. 
+As much as possible, we have bootstrapped the application stack to work together. But some **manual** configuration **is** needed once the stack is running. Please see the Quick Start section for details. 
 
 The repository includes some open source license code to use for the demo and evaluating different DevSecOps tools. See the sample_projects directory. 
 
@@ -35,11 +35,11 @@ Add the following to `hosts` file on the computerrunning docker.
 127.0.0.1	gitlab.local.net
 ```
 
-**NOTE:** Gitlab uses Elasticsearch.
+**NOTE:** Gitlab and SonarQube use Elasticsearch.
 
 Elasticsearch uses a mmapfs directory by default to store its indices. The default operating system limits on mmap counts is likely to be too low, which may result in out of memory exceptions.
 
-On Linux, you can increase the limits by running the following command as `root:`
+On Linux, you can increase the limits by running the following command as `root`
 
 ```
 sysctl -w vm.max_map_count=262144
@@ -76,25 +76,25 @@ Once gitlab is healthy the `bootstrap.sh` script pushes **this** repository to g
 
 Unfortunately we cannot fully bootstrap the tools so they integrate together. In order to do this we need to create some tokens and credentials, which we cannot do until the applications are running. A chicken/egg scenario...
 
-The following steps must be done **in this order** after the **first** run of the demo with the `bootstrap.sh` script. Remember to take a copy of all the tokens you create.
+The following steps marked **REQUIRED** must be done **in this order** after the **first** run of the demo with the `bootstrap.sh` script. Remember to take a copy of all the tokens you create. The steps marked **OPTIONAL** are to get webhooks from Gitlab working. But this is not strictly needed as the pipelines can be ran fromJenkins.
 
-1. Create Username and Password credential for cloning.
+1. Create Username and Password credential for cloning. (**REQUIRED**)
 
     In Jenkins create a credential of type `Username with Password` with the name `root-gitlab`. Note that it **must be** named `root-gitlab`.
 
-    ![](images/cloning-credential.png)
+    ![Gitlab Credential](images/cloning-credential.png)
 
-2. Create the token `token-sonarqube`. 
+2. Create the token `token-sonarqube`. (**REQUIRED**)
 
     The bootstrap.sh script created a token for the jenkins user in SonarQube. You can use this or create one manually yourself.
 
-    ![Generated SonarQube Token](images/sonarqube-token.png)
+    ![SonarQube Token](images/sonarqube-token.png)
 
     **Copy** the token and create a credential of type `secret text` in Jenkins called `token-sonarqube`.
 
     ![Jenkins SonarQube Token](images/jenkins-sonarqube-token.png)
 
-3. Create the token `token-gitlab`.
+3. Create the token `token-gitlab`. (**REQUIRED**)
 
     After logging in to gitlab. Go to admin users `Profile->Settings->Access Tokens`.
 
@@ -114,13 +114,13 @@ The following steps must be done **in this order** after the **first** run of th
 
     ![Gitlab Configuration](images/configure-gitlab.png)
 
-5. Allow WebHooks on local network for GitLab.
+5. Allow WebHooks on local network for GitLab. (**OPTIONAL**)
 
     Go to `Global settings->Network->Outbound Requests`(The small wrench on top menu) and make sure the settings correspond to the image below.
 
     ![Gitlab Network Settings](images/gitlab-network.png)
 
-6. Create a WebHook From Gitlab To Jenkins demo Pipeline(s).
+6. Create a WebHook From Gitlab To Jenkins demo Pipeline(s). (**REQUIRED**)
 
     First you need to create a credential in **Jenkins** for the Jenkins user by going to the Jenkins users `Profile->Configure` and creating one. Make sure to **copy** it.
 
@@ -130,11 +130,19 @@ The following steps must be done **in this order** after the **first** run of th
 
     ![Create Jenkins WebHook](images/gitlab-webhook.png)
 
-7. Run the Seed Job
+7. Run the Seed Job. (**REQUIRED**)
 
     This will generate the **pipeline** job(s) which can then be ran for demo purposes.
 
     ![Run Seed Job](images/seed.png)
+
+8. Create a Snyk Installation. (**REQUIRED**)
+
+    You need to create a **free** account on [Snyk](https://app.snyk.io/). See the [plans](https://snyk.io/plans/) for more info.
+
+    Go to `Manage Jenkins -> Global Tool Configuration` and add a Snyk installation.
+
+
 
 From now on you can take the stack up and down with docker-compose commands.
 
