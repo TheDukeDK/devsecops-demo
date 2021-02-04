@@ -23,7 +23,7 @@ Each of the categories has its own markdown file explaining the different tools 
 Comments have also been made to the pipeline files to give an overview of usage within the pipelines. 
 
 1. [Setup](docs/setup.md)
-2. [Library Scanning](docs/iac-scanning.md)
+2. [Library Scanning](docs/lib-scaning.md)
 3. [Image Scanning](docs/container-scanning.md)
 4. [IaC](docs/iac.scanning.md)
 5. [Observations](docs/observations.md)
