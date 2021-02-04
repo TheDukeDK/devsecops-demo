@@ -42,8 +42,8 @@ pipeline {
                 stage('Snyk') {
                     steps {
                         dir("sample_projects/eShopOnContainers") {
-                            // sh 'echo "Snyk for IaC is disabled. CLI Not mature enough yet."'
-                            sh 'snyk iac test k8s/ || true'
+                            sh 'echo "Snyk for IaC is disabled. CLI Not mature enough yet."'
+                            // sh 'snyk iac test k8s/deployments.yaml || true'
                         }
                     }
                 }
@@ -74,8 +74,8 @@ pipeline {
                 stage('Snyk') {
                     steps {
                         dir("sample_projects/terraform-google-gke") {
-                            // sh 'echo "Snyk for IaC is disabled. CLI Not mature enough yet."'
-                            sh 'snyk iac test gke-cluster/ || true'
+                            sh 'echo "Snyk for IaC is disabled. CLI Not mature enough yet."'
+                            // sh 'snyk iac test gke-cluster/ || true'
                         }
                     }
                 }
