@@ -52,6 +52,10 @@ See these two pipelines for demo implementations.
 ### Snyk CLI
 * Snyk CLI could be a way to a more cohesive set of tools.
 * Provides a free tier but included mainly for completeness.
+* Has a Jenkins plugin.
+* Produces html which publishes nicely in Jenkins.
+* Provides a centralized Dashboard for an overview of security issues.
+* Real benefits need a paid account as a lot of features are missing from free tier.
 
 # Recommendations
 
