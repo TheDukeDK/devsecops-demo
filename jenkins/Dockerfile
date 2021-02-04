@@ -62,6 +62,9 @@ RUN curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz \
 RUN pip3 install --upgrade pip && pip3 install --upgrade setuptools
 RUN pip install checkov
 
+# Install TFLint for scanning Infrastructure as Code.
+RUN curl https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
 # Install OWASP Dependency Check
 RUN gem install bundle-audit && gem cleanup
 RUN wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.0/dependency-check-6.1.0-release.zip \
