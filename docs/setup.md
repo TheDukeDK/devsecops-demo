@@ -142,6 +142,11 @@ The following steps marked **REQUIRED** must be done **in this order** after the
 
     Go to `Manage Jenkins -> Global Tool Configuration` and add a Snyk installation.
 
+    ![Snyk Installation](images/snyk-install.png)
+
+    Create credential of type Snyk API Token.
+
+    ![Snyk Token](images/snyk-token.png)
 
 
 From now on you can take the stack up and down with docker-compose commands.
