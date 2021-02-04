@@ -7,20 +7,20 @@ It, presently, contains the following applications to support the demo.
 * Jenkins(2.249.3)
 * SonarQube(8.4.2 Community Edition)
 
-The tools are all demonstrated in a set of Jenkins pipelines. At present the focus is on open source tools.
+The tools are all demonstrated in a set of Jenkins pipelines. At present the focus is on open source tools and tools with a free tier usage.
 # DevSecOps Areas
 They are broken into the follwoing categories.
 
-* Infrastructire As Code(Iac): Checking for security issues and best practice. Covers K8's Yaml, Helm Charts, Terrafrom and Dockerfiles.
+* **Infrastructire As Code(Iac)**: Checking for security issues and best practice. Covers K8's Yaml, Helm Charts, Terrafrom and Dockerfiles.
 
-* Library Scanning: Checking dependencies for security issues. Presently covered are .Net Core, NodeJs. Java coming soon.
+* **Library Scanning**: Checking dependencies for security issues. Presently covered are .Net Core, NodeJs. Java coming soon.
 
-* Image Scanning: Checking conatiner images for vulnerabilties.
+* **Image Scanning**: Checking conatiner images for vulnerabilties.
 
 # Documentation
-Each of the categories has its own markdown file explaining the different tools that have been evaluated, the reasoning behind the selection of a specific tool and some pros and cons.
+Each of the categories has its own markdown file explaining the different tools that have been evaluated, the reasoning behind the selection of a specific tool and some pros and cons. There are markdown files related to overall observations setting up the demo environemt.
 
-Additionally there is are markdown files related to overall observations setting up the demo environemt.
+Comments have also been made to the pipeline files to give an overview of usage within the pipelines. 
 
 1. [Setup](docs/setup.md)
 2. [Library Scanning](docs/iac-scanning.md)
