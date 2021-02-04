@@ -144,7 +144,7 @@ The following steps marked **REQUIRED** must be done **in this order** after the
 
     ![Snyk Installation](images/snyk-install.png)
 
-    Create credential of type Snyk API Token.
+    Create credential of type Snyk API Token. You can find your individual token under your profile ingeneral settings on [Snyk](https://app.snyk.io/)
 
     ![Snyk Token](images/snyk-token.png)
 
