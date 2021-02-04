@@ -31,7 +31,8 @@ Comments have also been made to the pipeline files to give an overview of usage 
 
 * Add Java pipelines for existing tools.
 * Add hadolint to the pipeline.
-
+* Add snapshots of output to docs.
+* Add cloud compatibility to documentation.
 
 
 

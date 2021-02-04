@@ -62,4 +62,4 @@ See these two pipelines for demo implementations.
 
 I would go with OWASP DC as the main tool for scanning vulnerabilties in dependecies. It covers the most ground, is relatively CI/CD friendly and although nothing is guaranteed a good bet for the future.
 
-Yarn and NPM Audit are viable options as they are well know by developers. B they are limited from a CI/CD perspective.
+Yarn and NPM Audit are viable options as they are well know by developers. They are limited from a CI/CD perspective but can be used in a limited fashion.

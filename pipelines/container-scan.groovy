@@ -22,6 +22,7 @@ pipeline {
             - Use --serverity to filter out results. UNKNOWN, LOW, MEDIUM, HIGH, CRITICAL
             - Combine --severity with --exit-code for granularity.
             - Use --ignore-unfixed option to filter out vulnerabilities where there is no fix version.
+            - Use a .trivyignore file to filter out false positives.
         */
         stage('Trivy Scan') {
             steps {
