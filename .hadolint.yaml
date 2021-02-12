@@ -1,0 +1,8 @@
+ignored:
+# Ignore version pinning
+  - DL3008
+  - DL3003
+  - DL3013
+  - DL3015
+  - DL3028
+  - DL3016
