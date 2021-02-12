@@ -88,7 +88,7 @@ services:
       - POSTGRES_PASSWORD=$SONARQUBE_DB_PASSWORD
     volumes:
       - sonar_db_volume:/var/lib/postgresql/data
-    restart: always
+    restart: unless-stopped
     ulimits:
       nproc: 65535
       nofile:
