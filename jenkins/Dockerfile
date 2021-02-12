@@ -21,7 +21,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > mic
     && chown root:root /etc/apt/sources.list.d/microsoft-prod.list
 
 # Install needed dependencies and build tools
-RUN apt-get -qq update && apt-get install --no-install-recommends -y nano gradle maven ant \
+RUN apt-get -qq update && apt-get install --no-install-recommends -y nano gradle maven ant sudo \
     build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev \
     libreadline-dev libffi-dev apt-transport-https dotnet-sdk-3.1 gnupg lsb-release ruby mono-runtime \
     && apt-get clean \
@@ -79,7 +79,7 @@ RUN pip3 install --no-cache-dir --upgrade pip && pip3 install --no-cache-dir --u
     && pip install --no-cache-dir checkov
 
 # Install TFLint and terrascan for scanning Infrastructure as Code.
-RUN curl "https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash"
+RUN curl "https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh" | bash
 
 # Install terrascan for scanning Infrastructure as Code.
 RUN curl --location https://github.com/accurics/terrascan/releases/download/v1.3.2/terrascan_1.3.2_Darwin_x86_64.tar.gz --output terrascan.tar.gz \
@@ -117,5 +117,7 @@ RUN chown jenkins:jenkins /jenkins.yml \
 
 ENV PATH="${PATH}:/var/jenkins_home/dependency-check/bin:/usr/local/bin/tools"
 
-# This is BAD of course. But we are mounting the docker socket from the host. So this is just an easy workaround for this demo.
+# This is BAD of course. 
+# But we are mounting the docker socket from the host. 
+# This is just a demo and an easy workaround.
 #USER jenkins
