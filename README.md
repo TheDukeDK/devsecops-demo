@@ -32,7 +32,4 @@ They are broken into the following categories.
 4. [IaC Scanning](docs/iac-scanning.md)
 5. [Observations](docs/observations.md)
 # Todo's
-
-* Finish iac documentation and overall observations. 
 * Add Java pipelines for existing tools.
-* Add snapshots of output to docs.
