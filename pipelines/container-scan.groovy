@@ -66,6 +66,18 @@ pipeline {
                 }
             }
         }
+        /*
+            Hadolint checks Dockerfile's for best practice. It basically uses shellcheck rules for best practice.
+            You can ignore rule/findings with a config file `hadolint.yaml`, when executing it from the CLI or inline in the Docklerfile.
+
+            - Use --no-fail if you don't want findings to fail the build.
+            - Ignore irrelevant findings inline in the Dockerfile for best visibility.
+        */
+        stage('HadoLint') {
+            steps {
+                sh 'hadolint --no-fail ./src/Web/WebSPA/Dockerfile --format checkstyle > hadolint.xml'
+            }
+        }
     }
     post {
         success {

@@ -87,7 +87,7 @@ RUN curl --location https://github.com/accurics/terrascan/releases/download/v1.3
     && install terrascan /usr/local/bin
 
 # Install Hadolint foe checking Dockerfiles
-RUN curl "https://github.com/hadolint/hadolint/releases/download/v1.22.1/hadolint-Linux-x86_64" -o /usr/local/bin/hadolint \
+RUN curl --location "https://github.com/hadolint/hadolint/releases/download/v1.22.1/hadolint-Linux-x86_64" --output /usr/local/bin/hadolint \
     && chmod +x /usr/local/bin/hadolint
 
 # Nodejs, nuget

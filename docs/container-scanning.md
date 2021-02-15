@@ -10,11 +10,13 @@ The tools in this demo have only been used against Docker format.
 * [Anchore Grype](https://github.com/anchore/grype)
 * [Trivy](https://github.com/aquasecurity/trivy)
 * [Snyk](https://support.snyk.io/hc/en-us/articles/360003946917-Test-images-with-the-Snyk-Container-CLI)
+* [Hadolint](https://github.com/hadolint/hadolint)
 
 ## Tools Selected
 * [Anchore Grype](https://github.com/anchore/grype)
 * [Trivy](https://github.com/aquasecurity/trivy)
 * [Snyk](https://support.snyk.io/hc/en-us/articles/360003946917-Test-images-with-the-Snyk-Container-CLI)
+* [Hadolint](https://github.com/hadolint/hadolint
 
 See he below pipeline for demo implementations.
 
@@ -47,8 +49,15 @@ But Anchore does provide Grype as part of their open source tools and it fits ou
 * Jenkins plugin does not support image scanning.
 * Does **not** supply an output format natively which can be used to publish reports in Jenkins.
 * Real benefits need a paid account as a lot of features are missing from free tier.
+### Hadolint
+* Hadolint is a good tool for checking best practice in Dockerfile's. It leverage ShellCheck.
+* There is, at least, an plugin vor VSCode.
+* It provides the `--no-fail` option to not fail a build in a CI/CD scenario.
+* Issues can be disabled by passing rules to the CLI, inline in Dockerfile and through a config file. (`.hadolint.yaml`)
 
 # Recommendations
 I would recommend using Trivy as the main image scanner. It is the most mature and fits well with CI/CD. It supprts more distributions and also covers .Net while Grype doesn't.
 
 Snyk CLI for containers is not as mature, yet, as it is for vulnerabilities. Seems quite limited in present version.
+
+I would also recommend using Hadolint in CI/CD pipelines, in an IDE and build tool if possible. 
