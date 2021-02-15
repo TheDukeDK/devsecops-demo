@@ -47,6 +47,24 @@ pipeline {
                         }
                     }
                 }
+                /*
+                    Provided by Aaccurics. Scans Terrafrom files(default), K8s, Helm(v3) and kustomize(v3).
+                    Has rules for AWS, Azure, GCP.
+
+                    - Use -v for more verbose info. 
+                    - Use -i and type (helm,k8s,kustomize,terrafrom).
+                    - Must force true as not don't fail option is supported.
+                    - 
+                */
+                stage('TerraScan') {
+                    steps {
+                        dir("sample_projects/eShopOnContainers") {
+                            // Force true to not fail the build. Any findings return 3
+                            // Redirecting some noise to /dev/null as it complains about helm files found but completes.
+                            sh 'terrascan scan -v -i k8s -d k8s 2> /dev/null || true'
+                        }
+                    }
+                }
             }
         }
         stage('Terraform') {
@@ -62,6 +80,9 @@ pipeline {
                         }
                     }
                 }
+                /*
+                    Todo: Add comments
+                */
                 stage('TfLint') {
                     steps {
                         dir("sample_projects/terraform-google-gke") {
@@ -79,6 +100,16 @@ pipeline {
                         }
                     }
                 }
+                /* Disabled as the tthe terraform version of files is not supported.
+                stage('TerraScan') {
+                    steps {
+                        dir("sample_projects/terraform-google-gke") {
+                            // Force true to not fail the build. Any findings return 3
+                            sh 'terrascan scan -v -i terrafrom || true'
+                        }
+                    }
+                }
+                */
             }
         }
     }
