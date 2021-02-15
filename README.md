@@ -29,7 +29,7 @@ They are broken into the following categories.
 1. [Setup](docs/setup.md)
 2. [Library Scanning](docs/lib-scaning.md)
 3. [Image Scanning](docs/container-scanning.md)
-4. [IaC](docs/iac.scanning.md)
+4. [IaC Scanning](docs/iac-scanning.md)
 5. [Observations](docs/observations.md)
 # Todo's
 
