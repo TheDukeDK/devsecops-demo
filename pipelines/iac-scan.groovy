@@ -19,6 +19,9 @@ pipeline {
                     - Use -o junitxml to output a junit report that can be published by jenkins.
                     - Use --quiet to only show failures
                     - Use --compact to NOT show code blocks related to failures.
+                    - Render your helm charts and scan them to find issues.
+                        Example: 
+                        `bash -c 'find -iname chart.yaml' | xargs -n1 -I% bash -c " dirname %" | xargs -n1 -I% bash -c "helm template % > %.yaml && checkov -f %.yaml --framework kubernetes || true" --`
                 */
                 stage('Checkov') {
                     steps { 
@@ -42,15 +45,16 @@ pipeline {
                 stage('Snyk') {
                     steps {
                         dir("sample_projects/eShopOnContainers") {
-                            //sh 'echo "Snyk for IaC is disabled. CLI Not mature enough yet."'
-                             sh 'snyk iac test k8s/deployments.yaml || true'
+                            sh 'echo "only run on single file. Due to error when running on directory. See: https://github.com/snyk/snyk/issues/1637"'
+                            sh 'snyk iac test k8s/deployments.yaml || true'
                         }
                     }
                 }
                 /*
                     Provided by Aaccurics. Scans Terrafrom files(default), K8s, Helm(v3) and kustomize(v3).
-                    Has rules for AWS, Azure, GCP.
+                    See terrascan -h for commands and terrascan <COMMAND> -h for options on commands.
 
+                    - Has rules for AWS, Azure, GCP.
                     - Use -v for more verbose info. 
                     - Use -i and type (helm,k8s,kustomize,terrafrom).
                     - Must force true as not don't fail option is supported.
@@ -81,7 +85,7 @@ pipeline {
                     }
                 }
                 /*
-                    Todo: Add comments
+                    
                 */
                 stage('TfLint') {
                     steps {
@@ -95,12 +99,11 @@ pipeline {
                 stage('Snyk') {
                     steps {
                         dir("sample_projects/terraform-google-gke") {
-                            //sh 'echo "Snyk for IaC is disabled. CLI Not mature enough yet."'
                             sh 'snyk iac test gke-cluster/ || true'
                         }
                     }
                 }
-                /* Disabled as the tthe terraform version of files is not supported.
+                /* Disabled as the tthe terraform version of files being scanned is not supported.
                 stage('TerraScan') {
                     steps {
                         dir("sample_projects/terraform-google-gke") {
