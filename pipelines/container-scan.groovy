@@ -75,7 +75,10 @@ pipeline {
         */
         stage('HadoLint') {
             steps {
-                sh 'hadolint --no-fail ./src/Web/WebSPA/Dockerfile --format checkstyle > hadolint.xml'
+                dir("sample_projects/eShopOnContainers") {
+                    // This specifies a specific Dockerfile that we know had one issue.
+                    sh 'hadolint --no-fail ./src/Web/WebSPA/Dockerfile --format checkstyle > hadolint.xml'
+                }
             }
         }
     }
