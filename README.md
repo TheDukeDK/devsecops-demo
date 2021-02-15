@@ -35,6 +35,4 @@ They are broken into the following categories.
 
 * Finish iac documentation and overall observations. 
 * Add Java pipelines for existing tools.
-* Add hadolint to the pipeline.
 * Add snapshots of output to docs.
-* Add cloud compatibility to documentation.
