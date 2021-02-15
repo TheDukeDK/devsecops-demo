@@ -72,12 +72,13 @@ pipeline {
 
             - Use --no-fail if you don't want findings to fail the build.
             - Ignore irrelevant findings inline in the Dockerfile for best visibility.
+            - Use `--format checkstyle > hadolint.xml` to publish in Jenkins.
         */
         stage('HadoLint') {
             steps {
                 dir("sample_projects/eShopOnContainers") {
                     // This specifies a specific Dockerfile that we know had one issue.
-                    sh 'hadolint --no-fail ./src/Web/WebSPA/Dockerfile --format checkstyle > hadolint.xml'
+                    sh 'hadolint --no-fail ./src/Web/WebSPA/Dockerfile'
                 }
             }
         }

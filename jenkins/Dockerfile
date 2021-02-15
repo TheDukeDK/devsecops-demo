@@ -78,11 +78,11 @@ RUN curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz \
 RUN pip3 install --no-cache-dir --upgrade pip && pip3 install --no-cache-dir --upgrade setuptools \
     && pip install --no-cache-dir checkov
 
-# Install TFLint and terrascan for scanning Infrastructure as Code.
+# Install TFLint for scanning Infrastructure as Code.
 RUN curl "https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh" | bash
 
 # Install terrascan for scanning Infrastructure as Code.
-RUN curl --location https://github.com/accurics/terrascan/releases/download/v1.3.2/terrascan_1.3.2_Darwin_x86_64.tar.gz --output terrascan.tar.gz \
+RUN curl --location https://github.com/accurics/terrascan/releases/download/v1.3.2/terrascan_1.3.2_Linux_x86_64.tar.gz --output terrascan.tar.gz \
     && tar -xvf terrascan.tar.gz \
     && install terrascan /usr/local/bin
 
