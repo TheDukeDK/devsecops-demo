@@ -1,0 +1,5 @@
+# IDE stuff
+*.code-workspace
+*.project
+*.classpath
+org.eclipse.jdt.*
