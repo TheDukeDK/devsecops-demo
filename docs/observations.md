@@ -15,5 +15,5 @@ You should prioritize;
 * Centralized configuration.
 * Centralized overview of your security status.
 * Alerting on new issues for already deployed code.
-* Support for scanning and best practices for IaC with support for AWS,GCP and Azure. E.g they are CI/CD friendly.
+* Support for scanning and best practices for IaC with support for AWS,GCP and Azure.
 * Integrations to leading platforms and tools. The broader the better. 
