@@ -6,7 +6,7 @@ The DevSecOps domain seems to be fairly monetized. If you wish to extend it past
 
 While these tools definately give value. The differening output formats and inablity to consolidate into an overall view on security limits them. For example, besides Snyk, which is limited with the free plan, none of them will alert if a new issue has been found on **already deployed code**.
 
-None fo them will have much value if they are **not** implemented in CI/CD pipelines, thresholds applied and the findings are actually mitigated. Pay services like Snyk and Nexus can get around this through central configuration of repositories and libraries. This allows for an overall security status which also covers applications which are **not** practicing CI/CD. 
+None fo them will have much value if they are **not** implemented in CI/CD pipelines, thresholds applied and the findings are actually mitigated. Paid services like Snyk and Nexus can get around this through central configuration of repositories and libraries. This allows for an overall security status which also covers applications which are **not** practicing CI/CD. 
 
 I beleive the best path forward is to analyse and choose a paid platform so you can leverage DevSecOps through the whole SDLC of the applications. 
 
@@ -15,5 +15,5 @@ You should prioritize;
 * Centralized configuration.
 * Centralized overview of your security status.
 * Alerting on new issues for already deployed code.
-* Support for scanning and best practices for IaC with support for AWS,GCP and Azure.
-* Integrations to leading platforms and tools. The broader the better.
+* Support for scanning and best practices for IaC with support for AWS,GCP and Azure. E.g they are CI/CD friendly.
+* Integrations to leading platforms and tools. The broader the better. 

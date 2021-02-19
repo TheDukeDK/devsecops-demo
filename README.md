@@ -15,7 +15,7 @@ They are broken into the following categories.
 
 * **Library Scanning**: Checking dependencies for security issues. Presently covered are .Net Core, NodeJs. Java coming soon.
 
-* **Image Scanning**: Checking conatiner images for vulnerabilties.
+* **Image Scanning**: Checking container images for vulnerabilties.
 
 # Documentation
 * See Setup for getting the demo environemt up and running locally.

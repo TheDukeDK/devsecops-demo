@@ -37,13 +37,13 @@ The technologies covered here are not focused on runtime misconfigrations or run
 * Provides helpful information regarding rules and mitigation.
 * You can filter the scan itself to only check for specific rules.
 ### Snyk
-* Supports Terrafrom and K8's yaml.
+* Supports Terraform and K8's yaml.
 * Snyk iac scanning encountered an error when scanning the whole directory. An [issue](https://github.com/snyk/snyk/issues/1637) has been raised.
 * The output, limited due to error scanning full directory, was not very verbose or helpful in mitigation.
 * A container [image](https://hub.docker.com/r/snyk/snyk-cli) is supplied if that is preferred method of execution. 
 * Snyk CLI could be a way to a more cohesive set of tools.
 ### Terrascan
-* Supports Terrafrom, Helm(v3) and Kusotmize(v3).
+* Supports Terrafrom, Helm(v3) and Kustomize(v3).
 * A container [image](https://hub.docker.com/r/accurics/terrascan) is supplied if that is preferred method of execution. 
 * Has rules for AWS, Azure, GCP.
 * Couldn't scan terraform files as the version was too old.
@@ -65,4 +65,4 @@ It supports publishing reports to Jenkins without any workarounds and can even s
 
 Checkov also had no problem scanning the terrafrom files while terrascan could not handle the version they were in.
 
-Finally Snyk IaC seems to be a little bit of a work in progress. But probably a more cohesive approach going forward. I would recommend to coming back to it at a later point.
+Finally Snyk IaC seems to be a little bit of a work in progress. But probably a more cohesive approach going forward. I would recommend coming back to it at a later point.

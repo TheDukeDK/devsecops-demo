@@ -1,7 +1,5 @@
 # Getting Setup To Run The Demo
 
-* Add snyk to setup markdown.
-
 This repository implements a demo of DevSecOps tools against some sample code bases. The goal being to evaluate these tools against each other useing the same baseline and also provide examples of usage. 
 
 It, presently, contains the following applications to support the demo. 
@@ -76,7 +74,7 @@ Once gitlab is healthy the `bootstrap.sh` script pushes **this** repository to g
 
 Unfortunately we cannot fully bootstrap the tools so they integrate together. In order to do this we need to create some tokens and credentials, which we cannot do until the applications are running. A chicken/egg scenario...
 
-The following steps marked **REQUIRED** must be done **in this order** after the **first** run of the demo with the `bootstrap.sh` script. Remember to take a copy of all the tokens you create. The steps marked **OPTIONAL** are to get webhooks from Gitlab working. But this is not strictly needed as the pipelines can be ran fromJenkins.
+The following steps marked **REQUIRED** must be done **in this order** after the **first** run of the demo with the `bootstrap.sh` script. Remember to take a copy of all the tokens you create. The steps marked **OPTIONAL** are to get webhooks from Gitlab working. But this is not strictly needed as the pipelines can be ran from Jenkins.
 
 1. Create Username and Password credential for cloning. (**REQUIRED**)
 
@@ -120,7 +118,7 @@ The following steps marked **REQUIRED** must be done **in this order** after the
 
     ![Gitlab Network Settings](images/gitlab-network.png)
 
-6. Create a WebHook From Gitlab To Jenkins demo Pipeline(s). (**REQUIRED**)
+6. Create a WebHook From Gitlab To Jenkins demo Pipeline(s). (**OPTIONAL**)
 
     First you need to create a credential in **Jenkins** for the Jenkins user by going to the Jenkins users `Profile->Configure` and creating one. Make sure to **copy** it.
 

@@ -16,7 +16,7 @@ The tools in this demo have only been used against Docker format.
 * [Anchore Grype](https://github.com/anchore/grype)
 * [Trivy](https://github.com/aquasecurity/trivy)
 * [Snyk](https://support.snyk.io/hc/en-us/articles/360003946917-Test-images-with-the-Snyk-Container-CLI)
-* [Hadolint](https://github.com/hadolint/hadolint
+* [Hadolint](https://github.com/hadolint/hadolint)
 
 See he below pipeline for demo implementations.
 
@@ -31,7 +31,7 @@ But Anchore does provide Grype as part of their open source tools and it fits ou
 * Covers Alpine, BusyBox, CentOS/Red Hat, Debian and Ubuntu distributions.
 * Also reports dependency vulnerabilities for Ruby, Python, JavaScript(NPM and Yarn).
 * Supports Docker and OCI formats.
-* Can doe some rogu thresh holds on severity of issues. (UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL)
+* Can doe some rouGH thresh holds on severity of issues. (UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL)
 * Does **not** supply an output format natively which can be used to publish reports in Jenkins.
 ### Trivy
 * Covers most all Linux distributions.
@@ -51,7 +51,7 @@ But Anchore does provide Grype as part of their open source tools and it fits ou
 * Real benefits need a paid account as a lot of features are missing from free tier.
 ### Hadolint
 * Hadolint is a good tool for checking best practice in Dockerfile's. It leverage ShellCheck.
-* There is, at least, an plugin vor VSCode.
+* There is, at least, a plugin vor VSCode.
 * It provides the `--no-fail` option to not fail a build in a CI/CD scenario.
 * Issues can be disabled by passing rules to the CLI, inline in Dockerfile and through a config file. (`.hadolint.yaml`)
 
